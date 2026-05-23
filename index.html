@@ -184,7 +184,7 @@
         }
         .inline-copy-btn.copied svg { fill: #fff !important; }
 
-        /* BIG LOGO / QR BOX (Like screenshot 1363) */
+        /* BIG LOGO / QR BOX */
         .big-logo-box {
             margin: 0 auto 24px; width: 180px; height: 180px; background: white; padding: 12px; border-radius: 20px;
             display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); border: 1px solid var(--border);
@@ -363,8 +363,8 @@
         const opBackgrounds = { bKash: "#fff0f6", Nagad: "#fff4f0", USDT: "#f0fdf4", LTC: "#f0f7ff" };
 
         const walletData = {
-            bkash: [{ name: "Personal Account", logoKey: "bKash", address: "01329365319", qr: "https://i.ibb.co.com/4g1Xr8BP/1164.jpg", isPopular: false }],
-            nagad: [{ name: "Personal Account", logoKey: "Nagad", address: "01329365319", qr: "https://i.ibb.co.com/ksqxHvm8/image.png", isPopular: false }],
+            bkash: [{ name: "Personal", logoKey: "bKash", address: "01329365319", qr: "https://i.ibb.co.com/4g1Xr8BP/1164.jpg", isPopular: false }],
+            nagad: [{ name: "Personal", logoKey: "Nagad", address: "01329365319", qr: "https://i.ibb.co.com/ksqxHvm8/image.png", isPopular: false }],
             usdt: [
                 { name: "BSC (BEP-20)", logoKey: "USDT", address: "0x829f5ddbf2e7df26559a86c61837eb59fc491c13", qr: "https://i.ibb.co.com/ynCSX0Wf/1155.jpg", isPopular: true },
                 { name: "TRON (TRC-20)", logoKey: "USDT", address: "TY7NYcRGVyqG3ECNnRb7MqSZnKxDPyhx8L", qr: "https://i.ibb.co.com/VcZfSztd/image.png", isPopular: false }
@@ -443,42 +443,32 @@
             
             const dataKey = selectedAsset.toLowerCase();
             const netInfo = walletData[dataKey][selectedNetworkIndex];
+            const isFiat = (selectedAsset === 'bKash' || selectedAsset === 'Nagad');
             
             // 1. Update Payment Summary Card
             document.getElementById('summaryMethod').innerText = selectedAsset;
             document.getElementById('addrText').innerText = netInfo.address;
             document.getElementById('summaryTypeValue').innerText = netInfo.name;
 
-            const isFiat = (selectedAsset === 'bKash' || selectedAsset === 'Nagad');
             document.getElementById('summaryIdLabel').innerText = isFiat ? "Number" : "Address";
             document.getElementById('summaryTypeLabel').innerText = isFiat ? "Account Type" : "Network";
 
-            // 2. Set Big Logo/QR
-            document.getElementById('bigLogoImage').src = netInfo.qr;
-
-            // 3. Render Dynamic Instructions below Logo
-            const listContainer = document.getElementById('instructionList');
+            // 2. Control Big Logo and Instructions Display
+            const logoContainer = document.getElementById('logoContainer');
             const instBox = document.getElementById('instructionsCard');
-            listContainer.innerHTML = "";
-            instBox.style.backgroundColor = opBackgrounds[selectedAsset] || "#ffffff";
+            const listContainer = document.getElementById('instructionList');
 
-            if (selectedAsset === 'bKash') {
-                listContainer.innerHTML = `
-                    <li>*247# ডায়াল করে আপনার bKash মোবাইল মেনুতে যান অথবা অ্যাপে যান।</li>
-                    <li>"Send Money" -এ ক্লিক করুন।</li>
-                    <li>উপরে দেওয়া নাম্বারটি বসান এবং তারপর আপনার টাকার পরিমাণ লিখুন।</li>
-                    <li>নিশ্চিত করতে এখন আপনার bKash মোবাইল পিন লিখুন।</li>
-                    <li>সবকিছু ঠিক থাকলে, আপনি একটি নিশ্চিতকরণ বার্তা পাবেন।</li>
-                    <li>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।</li>`;
-            } else if (selectedAsset === 'Nagad') {
-                listContainer.innerHTML = `
-                    <li>*167# ডায়াল করে আপনার Nagad মোবাইল মেনুতে যান অথবা অ্যাপে যান।</li>
-                    <li>"Send Money" -এ ক্লিক করুন।</li>
-                    <li>উপরে দেওয়া নাম্বারটি বসান এবং তারপর আপনার টাকার পরিমাণ লিখুন।</li>
-                    <li>নিশ্চিত করতে এখন আপনার Nagad মোবাইল পিন লিখুন।</li>
-                    <li>সবকিছু ঠিক থাকলে, আপনি একটি নিশ্চিতকরণ বার্তা পাবেন।</li>
-                    <li>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।</li>`;
+            if (isFiat) {
+                // Hide logo and rules for bKash and Nagad
+                logoContainer.style.display = 'none';
+                instBox.style.display = 'none';
             } else {
+                // Show logo and crypto rules for USDT/LTC
+                logoContainer.style.display = 'flex';
+                instBox.style.display = 'block';
+                document.getElementById('bigLogoImage').src = netInfo.qr;
+                instBox.style.backgroundColor = opBackgrounds[selectedAsset] || "#ffffff";
+                
                 listContainer.innerHTML = `
                     <li>Open your Crypto Wallet application.</li>
                     <li>Choose transfer/withdraw option and select ${selectedAsset}.</li>
