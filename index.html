@@ -51,12 +51,11 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 24px;
-            position: relative;
         }
 
         .step-title { font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; text-align: center; }
 
-        /* PREMIUM DROPDOWN BOX */
+        /* DROPDOWN BOX */
         .custom-dropdown {
             position: relative; width: 100%; margin-bottom: 20px; user-select: none;
         }
@@ -66,7 +65,6 @@
             border: 1px solid var(--border); font-weight: 600; cursor: pointer;
             display: flex; align-items: center; justify-content: space-between; 
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
         }
         
         .dropdown-selected.custom-disabled { 
@@ -79,7 +77,7 @@
 
         .dropdown-selected::after {
             content: ""; border-left: 5px solid transparent; border-right: 5px solid transparent;
-            border-top: 5px solid var(--text); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); margin-left: 10px;
+            border-top: 5px solid var(--text); transition: 0.3s; margin-left: 10px;
         }
         .dropdown-selected.open::after { transform: rotate(180deg); }
 
@@ -104,25 +102,20 @@
         }
 
         .sheet-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 18px;
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;
         }
-        .sheet-title { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+        .sheet-title { font-size: 1.2rem; font-weight: 700; color: var(--text); }
         
         .sheet-close-btn {
             background: #f1f5f9; border: none; cursor: pointer; padding: 6px; border-radius: 50%; color: var(--text);
-            transition: all 0.2s;
         }
-        .sheet-close-btn:active { transform: scale(0.9); }
 
         /* SEARCH BAR */
         .search-container { position: relative; margin-bottom: 16px; }
         .search-input {
             width: 100%; background: #f8fafc; border: 1px solid var(--border); padding: 12px 16px 12px 42px;
             border-radius: 12px; font-size: 0.95rem; color: var(--text); outline: none; font-weight: 600;
-            transition: all 0.2s;
         }
-        .search-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(15,23,42,0.05); }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
 
         /* OPTIONS LIST */
@@ -134,10 +127,7 @@
         }
         .dropdown-option:hover { background: #f1f5f9; }
         .option-left-content { display: flex; align-items: center; gap: 14px; }
-
-        .popular-badge {
-            background: #dcfce7; color: #16a34a; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
-        }
+        .popular-badge { background: #dcfce7; color: #16a34a; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
 
         .selected-value-container { display: flex; align-items: center; gap: 12px; width: 100%; font-size: 0.95rem; color: var(--text); }
         .crypto-image-logo { width: 28px; height: 28px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
@@ -147,71 +137,81 @@
             display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; margin-bottom: 24px; border: 1px solid #dbeafe;
         }
 
-        /* PREMIUM PROCEED BUTTON */
+        /* PROCEED BUTTON */
         .proceed-btn-style {
             padding: 15px 20px; border-radius: 14px; font-weight: 700; color: #94a3b8; 
             width: 100%; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border: none;
-            cursor: not-allowed; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); font-size: 15px;
+            cursor: not-allowed; transition: all 0.25s; font-size: 15px;
         }
         .proceed-btn-style.active {
             background: var(--dynamic); color: #fff; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
-        .proceed-btn-style.active:active { transform: scale(0.98); opacity: 0.95; }
 
-        /* GATEWAY DISPLAY DETAILS */
-        .payment-details-card {
-            background: var(--card); 
-            padding: 30px 20px; 
-            width: 100%; 
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+        /* 🖥 IMAGE 1362 STYLE PAYMENT SUMMARY CARD */
+        .payment-page-container {
+            padding: 30px 20px; width: 100%; display: flex; flex-direction: column;
         }
-
-        .detail-row { margin-bottom: 24px; }
-        .detail-label { font-size: 13px; color: var(--muted); font-weight: 700; margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        .copy-field {
-            background: #f8fafc; border: 1px solid var(--border); padding: 14px 16px; border-radius: 14px;
-            display: flex; align-items: center; justify-content: space-between; font-size: 15px; font-weight: 700; color: var(--text);
-            transition: all 0.2s;
+        .summary-card {
+            background: var(--card); border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.02); margin-bottom: 24px;
         }
+        .summary-header {
+            background: #090d16; color: #ffffff; padding: 14px 18px; font-size: 12px;
+            font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; text-align: left;
+        }
+        .summary-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 18px; border-bottom: 1px solid #f1f5f9;
+        }
+        .summary-row:last-child { border-bottom: none; }
+        .row-label { font-size: 14px; color: #64748b; font-weight: 600; }
+        .row-value { font-size: 14px; color: #0f172a; font-weight: 700; display: flex; align-items: center; gap: 8px; }
 
-        /* ICON ONLY ROUND COPY BUTTON */
+        /* SYNCED COPY BUTTON SYSTEM */
+        .row-value-copy { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; }
         .inline-copy-btn {
-            width: 36px; height: 36px; border-radius: 50%;
-            border: 1px solid var(--border); background: #fff;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0;
+            width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border);
+            background: #fff; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s; flex-shrink: 0;
         }
-        .inline-copy-btn:active { transform: scale(0.88); }
-        .inline-copy-btn svg { width: 16px; height: 16px; fill: #64748b; transition: all 0.2s; }
-        
+        .inline-copy-btn svg { width: 15px; height: 15px; fill: #64748b; }
         .inline-copy-btn.copied {
             background: var(--success) !important; border-color: var(--success) !important;
-            box-shadow: 0 4px 12px rgba(16,185,129,0.25);
+            box-shadow: 0 4px 12px rgba(16,185,129,0.2);
         }
         .inline-copy-btn.copied svg { fill: #fff !important; }
 
         /* QR BOX */
         .qr-box {
-            margin: 10px auto 20px; width: 220px; height: 220px; background: white; padding: 12px; border-radius: 16px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); border: 1px solid var(--border);
+            margin: 0 auto 24px; width: 200px; height: 200px; background: white; padding: 12px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03); border: 1px solid var(--border);
         }
-        .qr-box img { width: 100% !important; height: 100% !important; object-fit: contain !important; }
+        .qr-box img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* IMAGE 1353/1354 STYLE INSTRUCTION BOX */
+        .instructions-card {
+            border-radius: 16px; padding: 20px 18px; text-align: left; margin-bottom: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .instruction-list { list-style: none; padding: 0; margin: 0; }
+        .instruction-list li {
+            position: relative; padding-left: 22px; margin-bottom: 14px; font-size: 14px;
+            font-weight: 600; color: #334155; line-height: 1.5;
+        }
+        .instruction-list li:last-child { margin-bottom: 0; }
+        .instruction-list li::before {
+            content: "•"; position: absolute; left: 4px; top: -3px; color: var(--dynamic); font-size: 24px;
+        }
 
         .bottom-wrapper { margin-top: auto; padding-top: 20px; }
         .bottom-wrapper.fullscreen-padding { padding: 0 24px 24px 24px; }
 
-        .social-support-container { margin-top: 24px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+        .social-support-container { text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; }
         .support-title { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
         .social-icons-row { display: flex; justify-content: center; gap: 12px; }
-        
         .social-circle-btn {
             width: 42px; height: 42px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.2s;
         }
-        .social-circle-btn:active { transform: scale(0.9); opacity: 0.8; }
 
         .btn-spinner {
             display: none; width: 18px; height: 18px; border: 2px solid rgba(0, 0, 0, 0.1); border-top-color: var(--primary); border-radius: 50%; animation: btnSpin 0.6s linear infinite;
@@ -221,29 +221,21 @@
 
         /* FLOATING TOAST PILL */
         #topNotification {
-            position: fixed; top: -100px; left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            color: #fff; padding: 12px 24px; border-radius: 30px;
-            font-size: 14px; font-weight: 600; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            z-index: 10000; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; align-items: center; gap: 10px; white-space: nowrap; letter-spacing: -0.2px;
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 600;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 10000; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 10px; white-space: nowrap;
         }
         #topNotification.show { top: 20px; }
-        .toast-check {
-            width: 20px; height: 20px; border-radius: 50%; background: var(--success);
-            display: flex; align-items: center; justify-content: center;
-        }
+        .toast-check { width: 20px; height: 20px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; }
         .toast-check svg { width: 11px; height: 11px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
     </style>
 </head>
 <body>
 
     <div id="topNotification">
-        <div class="toast-check">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
+        <div class="toast-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         Copied Successfully!
     </div>
 
@@ -261,14 +253,14 @@
                 </div>
             </div>
             
-            <label class="detail-label">Currency</label>
+            <label class="row-label block mb-2">Currency</label>
             <div class="custom-dropdown">
                 <div class="dropdown-selected" id="assetSelected" onclick="openDropdownSheet('currency')">
                     <span class="selected-value-container" style="color: #94a3b8; font-weight: 500;">Select currency</span>
                 </div>
             </div>
 
-            <label class="detail-label" id="subSelectLabel">Network</label>
+            <label class="row-label block mb-2" id="subSelectLabel">Network</label>
             <div class="custom-dropdown">
                 <div class="dropdown-selected custom-disabled" id="networkSelected" onclick="openDropdownSheet('network')">
                     <span id="networkTextPlaceholder" style="color: #94a3b8; font-weight: 500;">Select network</span>
@@ -277,28 +269,43 @@
         </div>
 
         <div id="displayArea" style="display: none; width: 100%;">
-            <div class="payment-details-card">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px; background: #f8fafc; padding: 14px; border-radius: 14px; border: 1px solid var(--border);">
-                    <span id="networkLogo"></span>
-                    <span id="networkNameText" style="font-weight: 700; color: var(--text); font-size: 1rem; letter-spacing: -0.2px;"></span>
-                </div>
-
-                <div class="detail-row">
-                    <div class="qr-box">
-                        <img id="qrImage" src="" alt="QR Code">
+            <div class="payment-page-container">
+                
+                <div class="summary-card">
+                    <div class="summary-header">Payment Summary</div>
+                    <div class="summary-body">
+                        <div class="summary-row">
+                            <span class="row-label">Method</span>
+                            <div class="row-value" id="summaryMethod"></div>
+                        </div>
+                        <div class="summary-row">
+                            <span class="row-label" id="summaryIdLabel">Number</span>
+                            <div class="row-value-copy">
+                                <span id="addrText" style="font-family: monospace;">LOADING...</span>
+                                <button id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
+                                    <svg id="copySvgIcon" viewBox="0 0 24 24">
+                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="summary-row">
+                            <span class="row-label" id="summaryTypeLabel">Account Type</span>
+                            <span class="row-value" id="summaryTypeValue" style="color: #10b981;">Personal</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="detail-row" style="margin-top: 10px;">
-                    <span class="detail-label" id="finalDataLabel">Number / Address</span>
-                    <div class="copy-field" style="margin-top: 6px;">
-                        <span id="addrText" style="width: 80%; color: var(--text); word-break: break-all; font-family: monospace;">LOADING...</span>
-                        <button id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
-                            <svg id="copySvgIcon" viewBox="0 0 24 24">
-                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                            </svg>
-                        </button>
-                    </div>
+                <div class="qr-box" id="qrContainer">
+                    <img id="qrImage" src="" alt="QR Code">
+                </div>
+
+                <div class="instructions-card" id="instructionsCard">
+                    <ul class="instruction-list" id="instructionList"></ul>
+                </div>
+                
+                <div class="text-center text-xs font-semibold text-slate-400 mb-4 tracking-wide">
+                    Please contact us if you have any questions
                 </div>
             </div>
         </div>
@@ -330,17 +337,13 @@
             <div class="sheet-header">
                 <span id="sheetTitle" class="sheet-title">Select network</span>
                 <button class="sheet-close-btn" onclick="closeDropdownSheet()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
-            
             <div class="search-container">
-                <span class="search-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </span>
+                <span class="search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
                 <input type="text" id="sheetSearchInput" class="search-input" placeholder="Search" oninput="filterDropdownOptions()">
             </div>
-
             <div class="options-list-container" id="sheetOptionsList"></div>
         </div>
     </div>
@@ -353,12 +356,8 @@
             LTC: `<img src="https://i.ibb.co.com/S7J570W0/1154.png" class="crypto-image-logo" alt="LTC">`
         };
 
-        const themeColors = {
-            bKash: "#e2136e",
-            Nagad: "#f15a22",
-            USDT: "#26a17b",
-            LTC: "#345d9d"
-        };
+        const themeColors = { bKash: "#e2136e", Nagad: "#f15a22", USDT: "#26a17b", LTC: "#345d9d" };
+        const opBackgrounds = { bKash: "#fff0f6", Nagad: "#fff4f0", USDT: "#f0fdf4", LTC: "#f0f7ff" };
 
         const walletData = {
             bkash: [{ name: "Personal Account", logoKey: "bKash", address: "01329365319", qr: "https://i.ibb.co.com/4g1Xr8BP/1164.jpg", isPopular: false }],
@@ -376,48 +375,31 @@
 
         function openDropdownSheet(type) {
             if (type === 'network' && document.getElementById('networkSelected').classList.contains('custom-disabled')) return;
-            
             currentSheetType = type;
-            const overlay = document.getElementById('dropdownOverlay');
-            const sheetTitle = document.getElementById('sheetTitle');
-            const searchInput = document.getElementById('sheetSearchInput');
-            
-            searchInput.value = ""; 
-            overlay.style.display = 'flex';
-            
-            if (type === 'currency') {
-                sheetTitle.innerText = "Select currency";
-            } else {
-                sheetTitle.innerText = (selectedAsset === 'bKash' || selectedAsset === 'Nagad') ? "Select account type" : "Select network";
-            }
+            document.getElementById('sheetSearchInput').value = ""; 
+            document.getElementById('dropdownOverlay').style.display = 'flex';
+            document.getElementById('sheetTitle').innerText = type === 'currency' ? "Select currency" : ((selectedAsset === 'bKash' || selectedAsset === 'Nagad') ? "Select account type" : "Select network");
             renderSheetOptions();
         }
 
         function closeDropdownSheet() { document.getElementById('dropdownOverlay').style.display = 'none'; }
 
         function renderSheetOptions() {
-            const container = document.getElementById('sheetOptionsList');
-            container.innerHTML = "";
-            
+            const container = document.getElementById('sheetOptionsList'); container.innerHTML = "";
             if (currentSheetType === 'currency') {
-                const currencies = ['bKash', 'Nagad', 'USDT', 'LTC'];
-                currencies.forEach(asset => {
-                    const item = document.createElement('div');
-                    item.className = "dropdown-option";
+                ['bKash', 'Nagad', 'USDT', 'LTC'].forEach(asset => {
+                    const item = document.createElement('div'); item.className = "dropdown-option";
                     item.innerHTML = `<div class="option-left-content">${logos[asset]} <span>${asset}</span></div>`;
-                    item.onclick = () => selectCurrency(asset);
-                    container.appendChild(item);
+                    item.onclick = () => selectCurrency(asset); container.appendChild(item);
                 });
             } else {
                 const dataKey = selectedAsset.toLowerCase();
                 if(walletData[dataKey]) {
                     walletData[dataKey].forEach((net, index) => {
-                        const item = document.createElement('div');
-                        item.className = "dropdown-option";
+                        const item = document.createElement('div'); item.className = "dropdown-option";
                         let popBadge = net.isPopular ? `<span class="popular-badge">Popular</span>` : '';
                         item.innerHTML = `<div class="option-left-content">${logos[net.logoKey]} <span>${net.name}</span></div> ${popBadge}`;
-                        item.onclick = () => selectNetwork(index, net.name, net.logoKey);
-                        container.appendChild(item);
+                        item.onclick = () => selectNetwork(index, net.name, net.logoKey); container.appendChild(item);
                     });
                 }
             }
@@ -427,73 +409,86 @@
             selectedAsset = asset;
             document.getElementById('assetSelected').innerHTML = `<div class="selected-value-container">${logos[asset]} <span style="font-weight:700;">${asset}</span></div>`;
             closeDropdownSheet();
-
-            // Apply Premium Dynamic Color Scheme
             document.documentElement.style.setProperty('--dynamic', themeColors[asset] || '#000000');
-
             const isFiat = (asset === 'bKash' || asset === 'Nagad');
             document.getElementById('subSelectLabel').innerText = isFiat ? "Account Type" : "Network";
-
             const netSelected = document.getElementById('networkSelected');
             netSelected.classList.remove('custom-disabled');
             netSelected.innerHTML = `<span id="networkTextPlaceholder" style="color: var(--text); font-weight: 600;">${isFiat ? "Select account type" : "Select network"}</span>`;
-            
-            selectedNetworkIndex = "";
-            const btn = document.getElementById('proceedBtn');
-            btn.disabled = true;
-            btn.classList.remove('active');
+            selectedNetworkIndex = ""; const btn = document.getElementById('proceedBtn'); btn.disabled = true; btn.classList.remove('active');
         }
 
         function selectNetwork(index, name, logoKey) {
             selectedNetworkIndex = index;
             document.getElementById('networkSelected').innerHTML = `<div class="selected-value-container">${logos[logoKey]} <span style="font-weight:700;">${name}</span></div>`;
             closeDropdownSheet();
-
-            const btn = document.getElementById('proceedBtn');
-            btn.disabled = false;
-            btn.classList.add('active');
+            const btn = document.getElementById('proceedBtn'); btn.disabled = false; btn.classList.add('active');
             document.getElementById('btnText').innerText = "Proceed";
         }
 
         function filterDropdownOptions() {
             const query = document.getElementById('sheetSearchInput').value.toLowerCase();
-            const options = document.querySelectorAll('#sheetOptionsList .dropdown-option');
-            options.forEach(opt => {
-                const text = opt.innerText.toLowerCase();
-                opt.style.display = text.includes(query) ? "flex" : "none";
+            document.querySelectorAll('#sheetOptionsList .dropdown-option').forEach(opt => {
+                opt.style.display = opt.innerText.toLowerCase().includes(query) ? "flex" : "none";
             });
         }
 
         function startLoadingProcess() {
             if(selectedAsset === "" || selectedNetworkIndex === "") return;
-            
-            const btn = document.getElementById('proceedBtn');
-            const loader = document.getElementById('btnLoader');
-            const btnText = document.getElementById('btnText');
-            
-            btn.disabled = true;
-            btnText.innerText = ""; 
-            loader.style.display = 'block';
+            const btn = document.getElementById('proceedBtn'); const loader = document.getElementById('btnLoader'); const btnText = document.getElementById('btnText');
+            btn.disabled = true; btnText.innerText = ""; loader.style.display = 'block';
             
             const dataKey = selectedAsset.toLowerCase();
             const netInfo = walletData[dataKey][selectedNetworkIndex];
             
-            document.getElementById('networkLogo').innerHTML = logos[selectedAsset];
-            document.getElementById('networkNameText').innerText = `${selectedAsset} - ${netInfo.name}`;
+            // Dynamic Details Insertion
+            document.getElementById('summaryMethod').innerHTML = `${logos[selectedAsset]} <span style="font-weight:800;">${selectedAsset}</span>`;
             document.getElementById('addrText').innerText = netInfo.address;
             document.getElementById('qrImage').src = netInfo.qr;
+            document.getElementById('summaryTypeValue').innerText = netInfo.name;
 
-            document.getElementById('finalDataLabel').innerText = (selectedAsset === 'bKash' || selectedAsset === 'Nagad') ? "Recipient's Number" : "Recipient's Wallet Address";
+            const isFiat = (selectedAsset === 'bKash' || selectedAsset === 'Nagad');
+            document.getElementById('summaryIdLabel').innerText = isFiat ? "Number" : "Address";
+            document.getElementById('summaryTypeLabel').innerText = isFiat ? "Account Type" : "Network";
+
+            // Render Dynamic Instructions (Image 1353 & 1354)
+            const listContainer = document.getElementById('instructionList');
+            const instBox = document.getElementById('instructionsCard');
+            listContainer.innerHTML = "";
+            instBox.style.backgroundColor = opBackgrounds[selectedAsset] || "#ffffff";
+
+            if (selectedAsset === 'bKash') {
+                listContainer.innerHTML = `
+                    <li>*247# ডায়াল করে আপনার bKash মোবাইল মেনুতে যান অথবা অ্যাপে যান।</li>
+                    <li>"Send Money" -এ ক্লিক করুন।</li>
+                    <li>উপরে দেওয়া নাম্বারটি বসান এবং তারপর আপনার টাকার পরিমাণ লিখুন।</li>
+                    <li>নিশ্চিত করতে এখন আপনার bKash মোবাইল পিন লিখুন।</li>
+                    <li>সবকিছু ঠিক থাকলে, আপনি একটি নিশ্চিতকরণ বার্তা পাবেন।</li>
+                    <li>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।</li>`;
+            } else if (selectedAsset === 'Nagad') {
+                listContainer.innerHTML = `
+                    <li>*167# ডায়াল করে আপনার Nagad মোবাইল মেনুতে যান অথবা অ্যাপে যান।</li>
+                    <li>"Send Money" -এ ক্লিক করুন।</li>
+                    <li>উপরে দেওয়া নাম্বারটি বসান এবং তারপর আপনার টাকার পরিমাণ লিখুন।</li>
+                    <li>নিশ্চিত করতে এখন আপনার Nagad মোবাইল পিন লিখুন।</li>
+                    <li>সবকিছু ঠিক থাকলে, আপনি একটি নিশ্চিতকরণ বার্তা পাবেন।</li>
+                    <li>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।</li>`;
+            } else {
+                listContainer.innerHTML = `
+                    <li>Open your Crypto Wallet application.</li>
+                    <li>Choose transfer/withdraw option and select ${selectedAsset}.</li>
+                    <li>Scan the QR code above or copy the destination Address.</li>
+                    <li>Ensure the Network matches <b>${netInfo.name}</b> exactly to avoid loss of assets.</li>
+                    <li>Once payment is complete, input your Transaction Hash ID to Verify.</li>`;
+            }
             
             setTimeout(function() {
                 document.getElementById('mainContainer').classList.add('fullscreen-address-mode');
                 document.getElementById('bottomWrapper').classList.add('fullscreen-padding');
-                
                 document.getElementById('mainHeaderRow').style.display = 'none';
                 document.getElementById('selectionArea').style.display = 'none';
                 document.getElementById('socialSupportSection').style.display = 'none';
                 document.getElementById('displayArea').style.display = 'block';
-                
                 document.getElementById('actionButtons').innerHTML = `
                     <button onclick="location.reload()" style="background: var(--dynamic); padding:15px 0; border-radius:14px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">Back</button>
                 `;
@@ -512,8 +507,7 @@
                 notif.classList.add('show');
                 
                 setTimeout(function() {
-                    notif.classList.remove('show');
-                    copyBtn.classList.remove('copied');
+                    notif.classList.remove('show'); copyBtn.classList.remove('copied');
                     icon.innerHTML = '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="#64748b"/>';
                 }, 2400);
             });
