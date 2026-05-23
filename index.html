@@ -162,20 +162,29 @@
             background: #090d16; color: #ffffff; padding: 14px 18px; font-size: 12px;
             font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; text-align: left;
         }
+        
+        /* MULTILINE SUPPORT ROW */
         .summary-row {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: space-between; align-items: flex-start;
             padding: 16px 18px; border-bottom: 1px solid #f1f5f9;
         }
         .summary-row:last-child { border-bottom: none; }
-        .row-label { font-size: 14px; color: #64748b; font-weight: 600; }
-        .row-value { font-size: 15px; color: #0f172a; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .row-label { font-size: 14px; color: #64748b; font-weight: 600; white-space: nowrap; margin-right: 12px; margin-top: 2px; }
+        .row-value { font-size: 14px; color: #0f172a; font-weight: 800; display: flex; align-items: center; gap: 8px; text-align: right; }
 
-        /* SYNCED COPY BUTTON SYSTEM */
-        .row-value-copy { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 800; color: #0f172a; }
+        /* SYNCED COPY BUTTON SYSTEM - WRAPPING FIX */
+        .row-value-copy { 
+            display: flex; align-items: flex-start; gap: 12px; font-size: 14px; font-weight: 800; 
+            color: #0f172a; flex: 1; justify-content: flex-end; 
+        }
+        #addrText { 
+            word-break: break-all; /* Breaks long crypto addresses into multiple lines */
+            text-align: right; line-height: 1.4;
+        }
         .inline-copy-btn {
             width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
             background: #f8fafc; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+            cursor: pointer; transition: all 0.2s; flex-shrink: 0; margin-top: -3px; /* Keeps button aligned properly */
         }
         .inline-copy-btn svg { width: 16px; height: 16px; fill: #64748b; }
         .inline-copy-btn.copied {
@@ -184,27 +193,19 @@
         }
         .inline-copy-btn.copied svg { fill: #fff !important; }
 
-        /* BIG LOGO / QR BOX */
+        /* QR CODE BUTTON & BOX */
+        .qr-toggle-btn {
+            background: #ffffff; border: 1px solid var(--border); padding: 12px 20px; border-radius: 12px;
+            font-weight: 600; color: var(--text); display: inline-flex; align-items: center; justify-content: center;
+            gap: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: 0.3s; width: 100%;
+        }
+        .qr-toggle-btn:hover { background: #f8fafc; }
+        
         .big-logo-box {
-            margin: 0 auto 24px; width: 180px; height: 180px; background: white; padding: 12px; border-radius: 20px;
+            margin: 16px auto 0; width: 180px; height: 180px; background: white; padding: 12px; border-radius: 20px;
             display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); border: 1px solid var(--border);
         }
         .big-logo-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
-
-        /* DYNAMIC INSTRUCTIONS CARD */
-        .instructions-card {
-            border-radius: 16px; padding: 22px 20px; text-align: left; margin-bottom: 24px;
-            border: 1px solid rgba(0, 0, 0, 0.03);
-        }
-        .instruction-list { list-style: none; padding: 0; margin: 0; }
-        .instruction-list li {
-            position: relative; padding-left: 22px; margin-bottom: 14px; font-size: 14px;
-            font-weight: 600; color: #334155; line-height: 1.6;
-        }
-        .instruction-list li:last-child { margin-bottom: 0; }
-        .instruction-list li::before {
-            content: "•"; position: absolute; left: 4px; top: -2px; color: var(--dynamic); font-size: 24px;
-        }
 
         .bottom-wrapper { margin-top: auto; padding-top: 20px; }
         .bottom-wrapper.fullscreen-padding { padding: 0 24px 24px 24px; }
@@ -299,15 +300,24 @@
                     </div>
                 </div>
 
-                <div class="big-logo-box" id="logoContainer">
-                    <img id="bigLogoImage" src="" alt="Payment Logo">
-                </div>
-
-                <div class="instructions-card" id="instructionsCard">
-                    <ul class="instruction-list" id="instructionList"></ul>
+                <!-- NEW SCANNER & QR TOGGLE SECTION -->
+                <div id="qrToggleContainer" style="display: none; text-align: center; margin-bottom: 24px;">
+                    <button class="qr-toggle-btn" onclick="toggleQR()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                            <path d="M3 11v2m18-2v2m-10-8h2m-2 18h2"></path>
+                        </svg>
+                        <span>Show QR Code Scanner</span>
+                    </button>
+                    <div class="big-logo-box" id="logoContainer" style="display: none;">
+                        <img id="bigLogoImage" src="" alt="Payment Logo">
+                    </div>
                 </div>
                 
-                <div class="text-center text-xs font-semibold text-slate-400 mb-4 tracking-wide">
+                <div class="text-center text-xs font-semibold text-slate-400 mb-4 tracking-wide mt-2">
                     Please contact us if you have any questions
                 </div>
             </div>
@@ -360,8 +370,7 @@
         };
 
         const themeColors = { bKash: "#e2136e", Nagad: "#f15a22", USDT: "#26a17b", LTC: "#345d9d" };
-        const opBackgrounds = { bKash: "#fff0f6", Nagad: "#fff4f0", USDT: "#f0fdf4", LTC: "#f0f7ff" };
-
+        
         const walletData = {
             bkash: [{ name: "Personal", logoKey: "bKash", address: "01329365319", qr: "https://i.ibb.co.com/4g1Xr8BP/1164.jpg", isPopular: false }],
             nagad: [{ name: "Personal", logoKey: "Nagad", address: "01329365319", qr: "https://i.ibb.co.com/ksqxHvm8/image.png", isPopular: false }],
@@ -429,13 +438,6 @@
             document.getElementById('btnText').innerText = "Proceed";
         }
 
-        function filterDropdownOptions() {
-            const query = document.getElementById('sheetSearchInput').value.toLowerCase();
-            document.querySelectorAll('#sheetOptionsList .dropdown-option').forEach(opt => {
-                opt.style.display = opt.innerText.toLowerCase().includes(query) ? "flex" : "none";
-            });
-        }
-
         function startLoadingProcess() {
             if(selectedAsset === "" || selectedNetworkIndex === "") return;
             const btn = document.getElementById('proceedBtn'); const loader = document.getElementById('btnLoader'); const btnText = document.getElementById('btnText');
@@ -453,28 +455,17 @@
             document.getElementById('summaryIdLabel').innerText = isFiat ? "Number" : "Address";
             document.getElementById('summaryTypeLabel').innerText = isFiat ? "Account Type" : "Network";
 
-            // 2. Control Big Logo and Instructions Display
-            const logoContainer = document.getElementById('logoContainer');
-            const instBox = document.getElementById('instructionsCard');
-            const listContainer = document.getElementById('instructionList');
+            // 2. Control QR Code Display based on selection
+            const qrSection = document.getElementById('qrToggleContainer');
 
             if (isFiat) {
-                // Hide logo and rules for bKash and Nagad
-                logoContainer.style.display = 'none';
-                instBox.style.display = 'none';
+                // Hide QR code and Scanner toggle for bKash and Nagad
+                qrSection.style.display = 'none';
             } else {
-                // Show logo and crypto rules for USDT/LTC
-                logoContainer.style.display = 'flex';
-                instBox.style.display = 'block';
+                // Show scanner toggle button for Crypto
+                qrSection.style.display = 'block';
                 document.getElementById('bigLogoImage').src = netInfo.qr;
-                instBox.style.backgroundColor = opBackgrounds[selectedAsset] || "#ffffff";
-                
-                listContainer.innerHTML = `
-                    <li>Open your Crypto Wallet application.</li>
-                    <li>Choose transfer/withdraw option and select ${selectedAsset}.</li>
-                    <li>Scan the QR code above or copy the destination Address.</li>
-                    <li>Ensure the Network matches <b>${netInfo.name}</b> exactly to avoid loss of assets.</li>
-                    <li>Once payment is complete, input your Transaction Hash ID to Verify.</li>`;
+                document.getElementById('logoContainer').style.display = 'none'; // Keep QR hidden initially
             }
             
             setTimeout(function() {
@@ -488,6 +479,16 @@
                     <button onclick="location.reload()" style="background: var(--dynamic); padding:15px 0; border-radius:14px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">Back</button>
                 `;
             }, 1200);
+        }
+
+        // Toggle QR Code Display
+        function toggleQR() {
+            const logoBox = document.getElementById('logoContainer');
+            if (logoBox.style.display === 'none') {
+                logoBox.style.display = 'flex';
+            } else {
+                logoBox.style.display = 'none';
+            }
         }
 
         function copyText(elementId) {
