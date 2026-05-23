@@ -30,6 +30,7 @@
             justify-content: center;
         }
         
+        /* FULLSCREEN APP LAYOUT */
         .main-container { 
             width: 100%; 
             max-width: 480px; 
@@ -150,7 +151,7 @@
 
         /* 🖥 PAYMENT DISPLAY AREA */
         .payment-page-container {
-            padding: 30px 20px; width: 100%; display: flex; flex-direction: column;
+            padding: 30px 20px 10px 20px; width: 100%; display: flex; flex-direction: column;
         }
         
         /* SUMMARY CARD */
@@ -170,7 +171,7 @@
         }
         .summary-row:last-child { border-bottom: none; }
         .row-label { font-size: 14px; color: #64748b; font-weight: 600; white-space: nowrap; margin-right: 12px; margin-top: 2px; }
-        .row-value { font-size: 14px; color: #0f172a; font-weight: 800; display: flex; align-items: center; gap: 8px; text-align: right; }
+        .row-value { font-size: 15px; color: #0f172a; font-weight: 800; display: flex; align-items: center; gap: 8px; text-align: right; }
 
         /* SYNCED COPY BUTTON SYSTEM - WRAPPING FIX */
         .row-value-copy { 
@@ -207,15 +208,17 @@
         }
         .big-logo-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
 
-        .bottom-wrapper { margin-top: auto; padding-top: 20px; }
+        /* BOTTOM STICKY SOCIAL ICONS */
+        .bottom-wrapper { margin-top: auto; padding-top: 20px; width: 100%; }
         .bottom-wrapper.fullscreen-padding { padding: 0 24px 24px 24px; }
 
-        .social-support-container { text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; }
-        .support-title { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+        .social-support-container { text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; margin-top: 20px; }
+        .support-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px; letter-spacing: 0.3px; }
         .social-icons-row { display: flex; justify-content: center; gap: 12px; }
         .social-circle-btn {
-            width: 42px; height: 42px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.2s;
+            width: 42px; height: 42px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        .social-circle-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
 
         .btn-spinner {
             display: none; width: 18px; height: 18px; border: 2px solid rgba(0, 0, 0, 0.1); border-top-color: var(--primary); border-radius: 50%; animation: btnSpin 0.6s linear infinite;
@@ -300,7 +303,6 @@
                     </div>
                 </div>
 
-                <!-- NEW SCANNER & QR TOGGLE SECTION -->
                 <div id="qrToggleContainer" style="display: none; text-align: center; margin-bottom: 24px;">
                     <button class="qr-toggle-btn" onclick="toggleQR()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -315,10 +317,6 @@
                     <div class="big-logo-box" id="logoContainer" style="display: none;">
                         <img id="bigLogoImage" src="" alt="Payment Logo">
                     </div>
-                </div>
-                
-                <div class="text-center text-xs font-semibold text-slate-400 mb-4 tracking-wide mt-2">
-                    Please contact us if you have any questions
                 </div>
             </div>
         </div>
@@ -362,11 +360,18 @@
     </div>
 
     <script>
+        const logoUrls = {
+            bKash: "https://i.ibb.co.com/4g1Xr8BP/1164.jpg",
+            Nagad: "https://i.ibb.co.com/ksqxHvm8/image.png",
+            USDT: "https://i.ibb.co.com/MDXfJt8R/1153.png",
+            LTC: "https://i.ibb.co.com/S7J570W0/1154.png"
+        };
+
         const logos = {
-            bKash: `<img src="https://i.ibb.co.com/4g1Xr8BP/1164.jpg" class="crypto-image-logo" alt="bKash">`,
-            Nagad: `<img src="https://i.ibb.co.com/ksqxHvm8/image.png" class="crypto-image-logo" alt="Nagad">`,
-            USDT: `<img src="https://i.ibb.co.com/MDXfJt8R/1153.png" class="crypto-image-logo" alt="USDT">`,
-            LTC: `<img src="https://i.ibb.co.com/S7J570W0/1154.png" class="crypto-image-logo" alt="LTC">`
+            bKash: `<img src="${logoUrls.bKash}" class="crypto-image-logo" alt="bKash">`,
+            Nagad: `<img src="${logoUrls.Nagad}" class="crypto-image-logo" alt="Nagad">`,
+            USDT: `<img src="${logoUrls.USDT}" class="crypto-image-logo" alt="USDT">`,
+            LTC: `<img src="${logoUrls.LTC}" class="crypto-image-logo" alt="LTC">`
         };
 
         const themeColors = { bKash: "#e2136e", Nagad: "#f15a22", USDT: "#26a17b", LTC: "#345d9d" };
@@ -447,8 +452,12 @@
             const netInfo = walletData[dataKey][selectedNetworkIndex];
             const isFiat = (selectedAsset === 'bKash' || selectedAsset === 'Nagad');
             
-            // 1. Update Payment Summary Card
-            document.getElementById('summaryMethod').innerText = selectedAsset;
+            // 1. Update Payment Summary Card with Small Logo next to Method Name
+            document.getElementById('summaryMethod').innerHTML = `
+                <img src="${logoUrls[selectedAsset]}" style="width: 20px; height: 20px; border-radius: 4px; object-fit: cover;"> 
+                <span>${selectedAsset}</span>
+            `;
+            
             document.getElementById('addrText').innerText = netInfo.address;
             document.getElementById('summaryTypeValue').innerText = netInfo.name;
 
@@ -471,13 +480,20 @@
             setTimeout(function() {
                 document.getElementById('mainContainer').classList.add('fullscreen-address-mode');
                 document.getElementById('bottomWrapper').classList.add('fullscreen-padding');
+                
+                // Hide specific elements from first screen
                 document.getElementById('mainHeaderRow').style.display = 'none';
                 document.getElementById('selectionArea').style.display = 'none';
-                document.getElementById('socialSupportSection').style.display = 'none';
+                
+                // Show second screen Display Area
                 document.getElementById('displayArea').style.display = 'block';
+                
+                // Change Proceed Button to Back Button
                 document.getElementById('actionButtons').innerHTML = `
                     <button onclick="location.reload()" style="background: var(--dynamic); padding:15px 0; border-radius:14px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">Back</button>
                 `;
+                
+                // NOTE: We no longer hide "socialSupportSection" here, so it remains visible at the bottom.
             }, 1200);
         }
 
