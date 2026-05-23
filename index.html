@@ -173,19 +173,19 @@
         .row-label { font-size: 14px; color: #64748b; font-weight: 600; white-space: nowrap; margin-right: 12px; margin-top: 2px; }
         .row-value { font-size: 15px; color: #0f172a; font-weight: 800; display: flex; align-items: center; gap: 8px; text-align: right; }
 
-        /* SYNCED COPY BUTTON SYSTEM - WRAPPING FIX */
+        /* SYNCED COPY BUTTON SYSTEM */
         .row-value-copy { 
             display: flex; align-items: flex-start; gap: 12px; font-size: 14px; font-weight: 800; 
             color: #0f172a; flex: 1; justify-content: flex-end; 
         }
         #addrText { 
-            word-break: break-all; /* Breaks long crypto addresses into multiple lines */
+            word-break: break-all;
             text-align: right; line-height: 1.4;
         }
         .inline-copy-btn {
             width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
             background: #f8fafc; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s; flex-shrink: 0; margin-top: -3px; /* Keeps button aligned properly */
+            cursor: pointer; transition: all 0.2s; flex-shrink: 0; margin-top: -3px;
         }
         .inline-copy-btn svg { width: 16px; height: 16px; fill: #64748b; }
         .inline-copy-btn.copied {
@@ -201,18 +201,35 @@
             gap: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: 0.3s; width: 100%;
         }
         .qr-toggle-btn:hover { background: #f8fafc; }
-        
-        .big-logo-box {
-            margin: 16px auto 0; width: 180px; height: 180px; background: white; padding: 12px; border-radius: 20px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); border: 1px solid var(--border);
+
+        /* FULLSCREEN QR OVERLAY */
+        #qrFullscreenOverlay {
+            display: none; position: fixed; inset: 0; background: var(--bg);
+            z-index: 9999; flex-direction: column; align-items: center; justify-content: center;
         }
-        .big-logo-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
+        .qr-close-btn {
+            position: absolute; top: 30px; right: 30px; background: var(--card); border: 1px solid var(--border);
+            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text); box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.2s;
+        }
+        .qr-close-btn:hover { background: #f1f5f9; transform: scale(1.05); }
+        .qr-large-image {
+            width: 260px; height: 260px; background: #fff; padding: 16px; border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid var(--border);
+        }
+        .qr-large-image img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
+        .qr-instruction { margin-top: 24px; font-size: 16px; font-weight: 600; color: var(--muted); }
 
-        /* BOTTOM STICKY SOCIAL ICONS */
+        /* BOTTOM STICKY SOCIAL ICONS - ADJUSTED PADDING TO LIFT THEM UP */
         .bottom-wrapper { margin-top: auto; padding-top: 20px; width: 100%; }
-        .bottom-wrapper.fullscreen-padding { padding: 0 24px 24px 24px; }
+        /* Added extra 40px bottom padding to lift everything above safe areas/mobile navigation */
+        .bottom-wrapper.fullscreen-padding { padding: 0 24px 40px 24px; } 
 
-        .social-support-container { text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; margin-top: 20px; }
+        .social-support-container { 
+            text-align: center; border-top: 1px solid #f1f5f9; 
+            padding-top: 20px; margin-top: 20px; 
+            padding-bottom: 10px; /* Added padding to lift icons */
+        }
         .support-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px; letter-spacing: 0.3px; }
         .social-icons-row { display: flex; justify-content: center; gap: 12px; }
         .social-circle-btn {
@@ -244,6 +261,19 @@
     <div id="topNotification">
         <div class="toast-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         Copied Successfully!
+    </div>
+
+    <div id="qrFullscreenOverlay">
+        <button class="qr-close-btn" onclick="closeQR()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="qr-large-image">
+            <img id="fullscreenQRImage" src="" alt="Scan QR Code">
+        </div>
+        <div class="qr-instruction">Scan this QR Code to Pay</div>
     </div>
 
     <div class="main-container" id="mainContainer">
@@ -304,7 +334,7 @@
                 </div>
 
                 <div id="qrToggleContainer" style="display: none; text-align: center; margin-bottom: 24px;">
-                    <button class="qr-toggle-btn" onclick="toggleQR()">
+                    <button class="qr-toggle-btn" onclick="openQR()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="3" width="7" height="7" rx="1"></rect>
                             <rect x="14" y="3" width="7" height="7" rx="1"></rect>
@@ -314,9 +344,6 @@
                         </svg>
                         <span>Show QR Code Scanner</span>
                     </button>
-                    <div class="big-logo-box" id="logoContainer" style="display: none;">
-                        <img id="bigLogoImage" src="" alt="Payment Logo">
-                    </div>
                 </div>
             </div>
         </div>
@@ -452,7 +479,7 @@
             const netInfo = walletData[dataKey][selectedNetworkIndex];
             const isFiat = (selectedAsset === 'bKash' || selectedAsset === 'Nagad');
             
-            // 1. Update Payment Summary Card with Small Logo next to Method Name
+            // Update Summary Card
             document.getElementById('summaryMethod').innerHTML = `
                 <img src="${logoUrls[selectedAsset]}" style="width: 20px; height: 20px; border-radius: 4px; object-fit: cover;"> 
                 <span>${selectedAsset}</span>
@@ -464,47 +491,38 @@
             document.getElementById('summaryIdLabel').innerText = isFiat ? "Number" : "Address";
             document.getElementById('summaryTypeLabel').innerText = isFiat ? "Account Type" : "Network";
 
-            // 2. Control QR Code Display based on selection
+            // Control QR Code Button & Source
             const qrSection = document.getElementById('qrToggleContainer');
 
             if (isFiat) {
-                // Hide QR code and Scanner toggle for bKash and Nagad
-                qrSection.style.display = 'none';
+                qrSection.style.display = 'none'; // Hide for bKash/Nagad
             } else {
-                // Show scanner toggle button for Crypto
-                qrSection.style.display = 'block';
-                document.getElementById('bigLogoImage').src = netInfo.qr;
-                document.getElementById('logoContainer').style.display = 'none'; // Keep QR hidden initially
+                qrSection.style.display = 'block'; // Show scanner toggle for Crypto
+                document.getElementById('fullscreenQRImage').src = netInfo.qr; // Set Image to Fullscreen View
             }
             
             setTimeout(function() {
                 document.getElementById('mainContainer').classList.add('fullscreen-address-mode');
                 document.getElementById('bottomWrapper').classList.add('fullscreen-padding');
                 
-                // Hide specific elements from first screen
                 document.getElementById('mainHeaderRow').style.display = 'none';
                 document.getElementById('selectionArea').style.display = 'none';
                 
-                // Show second screen Display Area
                 document.getElementById('displayArea').style.display = 'block';
                 
-                // Change Proceed Button to Back Button
                 document.getElementById('actionButtons').innerHTML = `
-                    <button onclick="location.reload()" style="background: var(--dynamic); padding:15px 0; border-radius:14px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">Back</button>
+                    <button onclick="location.reload()" style="background: var(--dynamic); padding:15px 0; border-radius:14px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.08); margin-bottom: 10px;">Back</button>
                 `;
-                
-                // NOTE: We no longer hide "socialSupportSection" here, so it remains visible at the bottom.
             }, 1200);
         }
 
-        // Toggle QR Code Display
-        function toggleQR() {
-            const logoBox = document.getElementById('logoContainer');
-            if (logoBox.style.display === 'none') {
-                logoBox.style.display = 'flex';
-            } else {
-                logoBox.style.display = 'none';
-            }
+        // FULLSCREEN QR CODE TOGGLE FUNCTIONS
+        function openQR() {
+            document.getElementById('qrFullscreenOverlay').style.display = 'flex';
+        }
+
+        function closeQR() {
+            document.getElementById('qrFullscreenOverlay').style.display = 'none';
         }
 
         function copyText(elementId) {
