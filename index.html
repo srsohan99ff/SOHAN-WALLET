@@ -2,26 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>𝐒ᴏʜᴀɴ 𝐏ᴇᴍᴇɴᴛ - Official</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght=700&family=Rajdhani:wght=600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #2563eb;
-            --main-bg: #f8fafc;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --text-dark: #000000;
-            --text-gray: #64748b;
+            --primary: #0f172a;
+            --success: #10b981;
+            --dynamic: #000000;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --muted: #64748b;
+            --font: 'Inter', sans-serif;
         }
 
         body {
-            background-color: var(--main-bg);
+            background-color: var(--bg);
             margin: 0;
             padding: 0;
-            font-family: 'Rajdhani', sans-serif;
-            color: var(--text-dark);
+            font-family: var(--font);
+            color: var(--text);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -29,16 +32,16 @@
         
         .main-container { 
             width: 100%; 
-            max-width: 500px; 
-            background: var(--card-bg);
+            max-width: 480px; 
+            background: var(--card);
             padding: 24px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.02);
         }
 
-        /* ফুল স্ক্রিন অ্যাড্রেস ডিসপ্লে মোড (কোনো গ্যাপ বা প্যাডিং থাকবে না) */
         .main-container.fullscreen-address-mode {
             padding: 0px !important;
         }
@@ -47,48 +50,52 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 24px;
             position: relative;
         }
 
-        .step-title { font-size: 1.6rem; font-weight: 700; color: var(--text-dark); margin: 0; text-align: center; }
+        .step-title { font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; text-align: center; }
 
-        /* ড্রপডাউন সিলেক্টর বক্স */
+        /* PREMIUM DROPDOWN BOX */
         .custom-dropdown {
-            position: relative; width: 100%; margin-bottom: 18px; user-select: none;
+            position: relative; width: 100%; margin-bottom: 20px; user-select: none;
         }
 
         .dropdown-selected {
-            background: var(--card-bg); color: var(--text-dark); padding: 14px 16px; border-radius: 12px;
-            border: 1.5px solid var(--border-color); font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; justify-content: space-between; transition: 0.2s;
+            background: var(--card); color: var(--text); padding: 14px 16px; border-radius: 14px;
+            border: 1px solid var(--border); font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
         }
         
         .dropdown-selected.custom-disabled { 
-            opacity: 0.6 !important; 
+            opacity: 0.5 !important; 
             cursor: not-allowed !important;
-            background: var(--main-bg) !important;
-            color: var(--text-gray) !important;
+            background: #f1f5f9 !important;
+            color: #94a3b8 !important;
+            border-color: #e2e8f0 !important;
         }
 
         .dropdown-selected::after {
             content: ""; border-left: 5px solid transparent; border-right: 5px solid transparent;
-            border-top: 5px solid var(--text-dark); transition: 0.3s; margin-left: 10px;
+            border-top: 5px solid var(--text); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); margin-left: 10px;
         }
         .dropdown-selected.open::after { transform: rotate(180deg); }
 
-        /* ক্রিপ্টোমাসের মতো বটম ড্রপডাউন মডাল ওভারলে */
+        /* BOTTOM MODAL SHEET OVERLAY */
         .dropdown-overlay {
-            display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 200;
+            display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); z-index: 200;
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
             align-items: flex-end; justify-content: center;
         }
         
         .dropdown-sheet {
-            background: var(--card-bg); width: 100%; max-width: 500px;
+            background: var(--card); width: 100%; max-width: 480px;
             border-top-left-radius: 24px; border-top-right-radius: 24px;
-            padding: 20px; box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
-            max-height: 80vh; display: flex; flex-direction: column;
-            animation: slideUp 0.3s ease-out;
+            padding: 24px 20px; box-shadow: 0 -10px 40px rgba(0,0,0,0.12);
+            max-height: 75vh; display: flex; flex-direction: column;
+            animation: slideUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
         @keyframes slideUp {
@@ -98,59 +105,63 @@
 
         .sheet-header {
             display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
-        .sheet-title { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); }
+        .sheet-title { font-size: 1.2rem; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
         
         .sheet-close-btn {
-            background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-dark);
+            background: #f1f5f9; border: none; cursor: pointer; padding: 6px; border-radius: 50%; color: var(--text);
+            transition: all 0.2s;
         }
+        .sheet-close-btn:active { transform: scale(0.9); }
 
-        /* সার্চ বার */
+        /* SEARCH BAR */
         .search-container { position: relative; margin-bottom: 16px; }
         .search-input {
-            width: 100%; background: var(--main-bg); border: 1px solid var(--border-color); padding: 12px 16px 12px 42px;
-            border-radius: 12px; font-size: 0.95rem; color: var(--text-dark); outline: none; font-weight: 600;
+            width: 100%; background: #f8fafc; border: 1px solid var(--border); padding: 12px 16px 12px 42px;
+            border-radius: 12px; font-size: 0.95rem; color: var(--text); outline: none; font-weight: 600;
+            transition: all 0.2s;
         }
-        .search-input::placeholder { color: var(--text-gray); }
-        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-gray); }
+        .search-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(15,23,42,0.05); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
 
-        /* অপশন লিস্ট */
+        /* OPTIONS LIST */
         .options-list-container { overflow-y: auto; flex-grow: 1; padding-bottom: 10px; }
         .dropdown-option {
-            padding: 14px 8px; cursor: pointer; display: flex; align-items: center;
-            justify-content: space-between; transition: 0.2s; color: var(--text-dark);
-            font-weight: 600; font-size: 1.05rem; border-bottom: 1px solid var(--border-color);
+            padding: 14px 12px; cursor: pointer; display: flex; align-items: center;
+            justify-content: space-between; border-radius: 12px; transition: all 0.2s; color: var(--text);
+            font-weight: 600; font-size: 1rem; margin-bottom: 4px;
         }
-        .dropdown-option:hover { background: var(--main-bg); }
+        .dropdown-option:hover { background: #f1f5f9; }
         .option-left-content { display: flex; align-items: center; gap: 14px; }
 
         .popular-badge {
-            background: #e8f7ee; color: #10b981; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+            background: #dcfce7; color: #16a34a; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
         }
 
-        .selected-value-container { display: flex; align-items: center; gap: 14px; width: 100%; font-size: 0.95rem; color: var(--text-dark); }
-        .crypto-image-logo { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+        .selected-value-container { display: flex; align-items: center; gap: 12px; width: 100%; font-size: 0.95rem; color: var(--text); }
+        .crypto-image-logo { width: 28px; height: 28px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
 
         .info-tag {
             background: #eff6ff; color: #2563eb; padding: 6px 14px; border-radius: 20px; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; margin-bottom: 20px; border: 1px solid #dbeafe;
+            display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; margin-bottom: 24px; border: 1px solid #dbeafe;
         }
 
-        /* প্রসিড বাটন */
+        /* PREMIUM PROCEED BUTTON */
         .proceed-btn-style {
-            padding: 14px 20px; border-radius: 12px; font-weight: 700; color: #8e949f; 
-            width: 100%; display: flex; align-items: center; justify-content: center; background: #eeeeee; border: none;
-            cursor: not-allowed; transition: all 0.2s ease;
+            padding: 15px 20px; border-radius: 14px; font-weight: 700; color: #94a3b8; 
+            width: 100%; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border: none;
+            cursor: not-allowed; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); font-size: 15px;
         }
         .proceed-btn-style.active {
-            background: #000000; color: #fff; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: var(--dynamic); color: #fff; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
+        .proceed-btn-style.active:active { transform: scale(0.98); opacity: 0.95; }
 
-        /* 🖥 ফুল স্ক্রিন পেমেন্ট কার্ড লেআউট (কোনো সাইড গ্যাপ থাকবে না) */
+        /* GATEWAY DISPLAY DETAILS */
         .payment-details-card {
-            background: var(--card-bg); 
-            padding: 30px 24px; 
+            background: var(--card); 
+            padding: 30px 20px; 
             width: 100%; 
             min-height: 80vh;
             display: flex;
@@ -158,57 +169,82 @@
             justify-content: flex-start;
         }
 
-        .detail-row { margin-bottom: 20px; }
-        .detail-label { font-size: 0.9rem; color: var(--text-gray); font-weight: 700; margin-bottom: 8px; display: block; }
+        .detail-row { margin-bottom: 24px; }
+        .detail-label { font-size: 13px; color: var(--muted); font-weight: 700; margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
         
         .copy-field {
-            background: var(--main-bg); border: 1px solid var(--border-color); padding: 14px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: space-between; font-family: monospace; font-size: 0.9rem; word-break: break-all; color: var(--text-dark);
+            background: #f8fafc; border: 1px solid var(--border); padding: 14px 16px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: space-between; font-size: 15px; font-weight: 700; color: var(--text);
+            transition: all 0.2s;
         }
 
+        /* ICON ONLY ROUND COPY BUTTON */
         .inline-copy-btn {
-            display: flex; align-items: center; justify-content: center; color: #2563eb; background: #eff6ff; border: 1px solid #dbeafe;
-            width: 38px; height: 38px; border-radius: 8px; cursor: pointer; flex-shrink: 0;
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 1px solid var(--border); background: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0;
         }
-        .inline-copy-btn.copied { background: #d1fae5 !important; border-color: #10b981 !important; color: #059669 !important; }
+        .inline-copy-btn:active { transform: scale(0.88); }
+        .inline-copy-btn svg { width: 16px; height: 16px; fill: #64748b; transition: all 0.2s; }
+        
+        .inline-copy-btn.copied {
+            background: var(--success) !important; border-color: var(--success) !important;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.25);
+        }
+        .inline-copy-btn.copied svg { fill: #fff !important; }
 
-        /* বড় স্ক্যানার সাইজ বক্স */
+        /* QR BOX */
         .qr-box {
-            margin: 15px auto 25px; width: 240px; height: 240px; background: white; padding: 12px; border-radius: 16px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); border: 1px solid var(--border-color);
+            margin: 10px auto 20px; width: 220px; height: 220px; background: white; padding: 12px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04); border: 1px solid var(--border);
         }
         .qr-box img { width: 100% !important; height: 100% !important; object-fit: contain !important; }
 
         .bottom-wrapper { margin-top: auto; padding-top: 20px; }
         .bottom-wrapper.fullscreen-padding { padding: 0 24px 24px 24px; }
 
-        .social-support-container { margin-top: 24px; text-align: center; border-top: 1px solid var(--border-color); padding-top: 15px; }
-        .support-title { font-size: 0.85rem; font-weight: 700; color: var(--text-gray); margin-bottom: 14px; letter-spacing: 1px; }
-        .social-icons-row { display: flex; justify-content: center; gap: 14px; }
+        .social-support-container { margin-top: 24px; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+        .support-title { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+        .social-icons-row { display: flex; justify-content: center; gap: 12px; }
         
         .social-circle-btn {
-            width: 42px; height: 42px; border-radius: 50%; background: var(--text-dark); display: flex; align-items: center; justify-content: center; color: var(--card-bg); transition: all 0.3s ease;
+            width: 42px; height: 42px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.2s;
         }
+        .social-circle-btn:active { transform: scale(0.9); opacity: 0.8; }
 
         .btn-spinner {
-            display: none; width: 20px; height: 20px; border: 3px solid rgba(0, 0, 0, 0.1); border-left-color: #000000; border-radius: 50%; animation: btnSpin 0.7s linear infinite;
+            display: none; width: 18px; height: 18px; border: 2px solid rgba(0, 0, 0, 0.1); border-top-color: var(--primary); border-radius: 50%; animation: btnSpin 0.6s linear infinite;
         }
-        .proceed-btn-style.active .btn-spinner { border-color: rgba(255,255,255,0.3); border-left-color: #fff; }
-        @keyframes btnSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .proceed-btn-style.active .btn-spinner { border-color: rgba(255,255,255,0.3); border-top-color: #fff; }
+        @keyframes btnSpin { to { transform: rotate(360deg); } }
 
-        .top-notification {
-            position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: var(--card-bg); border: 1px solid #10b981; color: var(--text-dark);
-            padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; z-index: 9999;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); opacity: 0; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        /* FLOATING TOAST PILL */
+        #topNotification {
+            position: fixed; top: -100px; left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            color: #fff; padding: 12px 24px; border-radius: 30px;
+            font-size: 14px; font-weight: 600; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            z-index: 10000; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 10px; white-space: nowrap; letter-spacing: -0.2px;
         }
-        .top-notification.show { top: 25px; opacity: 1; }
+        #topNotification.show { top: 20px; }
+        .toast-check {
+            width: 20px; height: 20px; border-radius: 50%; background: var(--success);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .toast-check svg { width: 11px; height: 11px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
     </style>
 </head>
 <body>
 
-    <div id="topToast" class="top-notification">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        <span>Copied successfully!</span>
+    <div id="topNotification">
+        <div class="toast-check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        Copied Successfully!
     </div>
 
     <div class="main-container" id="mainContainer">
@@ -220,7 +256,7 @@
         <div id="selectionArea">
             <div style="text-align: center;">
                 <div class="info-tag">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                     <span>Select payment method</span>
                 </div>
             </div>
@@ -228,23 +264,23 @@
             <label class="detail-label">Currency</label>
             <div class="custom-dropdown">
                 <div class="dropdown-selected" id="assetSelected" onclick="openDropdownSheet('currency')">
-                    <span class="selected-value-container" style="color: #64748b;">Select currency</span>
+                    <span class="selected-value-container" style="color: #94a3b8; font-weight: 500;">Select currency</span>
                 </div>
             </div>
 
             <label class="detail-label" id="subSelectLabel">Network</label>
             <div class="custom-dropdown">
                 <div class="dropdown-selected custom-disabled" id="networkSelected" onclick="openDropdownSheet('network')">
-                    <span id="networkTextPlaceholder" style="color: #94a3b8; font-weight: 600;">Select network</span>
+                    <span id="networkTextPlaceholder" style="color: #94a3b8; font-weight: 500;">Select network</span>
                 </div>
             </div>
         </div>
 
         <div id="displayArea" style="display: none; width: 100%;">
             <div class="payment-details-card">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; background: var(--main-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px; background: #f8fafc; padding: 14px; border-radius: 14px; border: 1px solid var(--border);">
                     <span id="networkLogo"></span>
-                    <span id="networkNameText" style="font-weight: 700; color: var(--text-dark); font-size: 1rem;"></span>
+                    <span id="networkNameText" style="font-weight: 700; color: var(--text); font-size: 1rem; letter-spacing: -0.2px;"></span>
                 </div>
 
                 <div class="detail-row">
@@ -256,10 +292,12 @@
                 <div class="detail-row" style="margin-top: 10px;">
                     <span class="detail-label" id="finalDataLabel">Number / Address</span>
                     <div class="copy-field" style="margin-top: 6px;">
-                        <span id="addrText" style="width: 80%; color: var(--text-dark);">LOADING...</span>
-                        <span id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        </span>
+                        <span id="addrText" style="width: 80%; color: var(--text); word-break: break-all; font-family: monospace;">LOADING...</span>
+                        <button id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
+                            <svg id="copySvgIcon" viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -276,11 +314,11 @@
             <div class="social-support-container" id="socialSupportSection">
                 <div class="support-title">Please contact us if you have any questions</div>
                 <div class="social-icons-row">
-                    <a href="https://t.me/srsohan99ff" target="_blank" class="social-circle-btn telegram">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                    <a href="https://t.me/srsohan99ff" target="_blank" class="social-circle-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
                     </a>
-                    <a href="https://wa.me/8801329365319" target="_blank" class="social-circle-btn whatsapp">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.729-1.447L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.852.002-2.632-1.023-5.105-2.887-6.97C16.577 1.917 14.101.892 11.47.89 6.037.89 1.612 5.31 1.608 10.741c-.001 1.682.449 3.32 1.302 4.773L1.87 20.354l5.106-1.34c-.11.06-.21.11-.328.14zM17.65 14.4c-.32-.16-1.89-.93-2.185-1.04-.3-.11-.51-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.19.21-.38.24-.70.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.6-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.15-.14.32-.37.48-.56.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.64-.53-.55-.72-.56l-.61-.01c-.21 0-.56.08-.85.4-.3.32-1.15 1.13-1.15 2.75 0 1.62 1.18 3.19 1.35 3.41.17.22 2.33 3.56 5.65 5 .79.34 1.41.55 1.89.7.8.25 1.53.22 2.11.13.65-.1 1.89-.77 2.15-1.48.27-.71.27-1.32.19-1.45-.08-.14-.3-.22-.62-.38z"/></svg>
+                    <a href="https://wa.me/8801329365319" target="_blank" class="social-circle-btn">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.729-1.447L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.852.002-2.632-1.023-5.105-2.887-6.97C16.577 1.917 14.101.892 11.47.89 6.037.89 1.612 5.31 1.608 10.741c-.001 1.682.449 3.32 1.302 4.773L1.87 20.354l5.106-1.34c-.11.06-.21.11-.328.14zM17.65 14.4c-.32-.16-1.89-.93-2.185-1.04-.3-.11-.51-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.6-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.15-.14.32-.37.48-.56.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.64-.53-.55-.72-.56l-.61-.01c-.21 0-.56.08-.85.4-.3.32-1.15 1.13-1.15 2.75 0 1.62 1.18 3.19 1.35 3.41.17.22 2.33 3.56 5.65 5 .79.34 1.41.55 1.89.7.8.25 1.53.22 2.11.13.65-.1 1.89-.77 2.15-1.48.27-.71.27-1.32.19-1.45-.08-.14-.3-.22-.62-.38z"/></svg>
                     </a>
                 </div>
             </div>
@@ -292,7 +330,7 @@
             <div class="sheet-header">
                 <span id="sheetTitle" class="sheet-title">Select network</span>
                 <button class="sheet-close-btn" onclick="closeDropdownSheet()">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
             
@@ -313,6 +351,13 @@
             Nagad: `<img src="https://i.ibb.co.com/ksqxHvm8/image.png" class="crypto-image-logo" alt="Nagad">`,
             USDT: `<img src="https://i.ibb.co.com/MDXfJt8R/1153.png" class="crypto-image-logo" alt="USDT">`,
             LTC: `<img src="https://i.ibb.co.com/S7J570W0/1154.png" class="crypto-image-logo" alt="LTC">`
+        };
+
+        const themeColors = {
+            bKash: "#e2136e",
+            Nagad: "#f15a22",
+            USDT: "#26a17b",
+            LTC: "#345d9d"
         };
 
         const walletData = {
@@ -380,15 +425,18 @@
 
         function selectCurrency(asset) {
             selectedAsset = asset;
-            document.getElementById('assetSelected').innerHTML = `<div class="selected-value-container">${logos[asset]} <span>${asset}</span></div>`;
+            document.getElementById('assetSelected').innerHTML = `<div class="selected-value-container">${logos[asset]} <span style="font-weight:700;">${asset}</span></div>`;
             closeDropdownSheet();
+
+            // Apply Premium Dynamic Color Scheme
+            document.documentElement.style.setProperty('--dynamic', themeColors[asset] || '#000000');
 
             const isFiat = (asset === 'bKash' || asset === 'Nagad');
             document.getElementById('subSelectLabel').innerText = isFiat ? "Account Type" : "Network";
 
             const netSelected = document.getElementById('networkSelected');
             netSelected.classList.remove('custom-disabled');
-            netSelected.innerHTML = `<span id="networkTextPlaceholder" style="color: var(--text-dark); font-weight: 600;">${isFiat ? "Select account type" : "Select network"}</span>`;
+            netSelected.innerHTML = `<span id="networkTextPlaceholder" style="color: var(--text); font-weight: 600;">${isFiat ? "Select account type" : "Select network"}</span>`;
             
             selectedNetworkIndex = "";
             const btn = document.getElementById('proceedBtn');
@@ -398,7 +446,7 @@
 
         function selectNetwork(index, name, logoKey) {
             selectedNetworkIndex = index;
-            document.getElementById('networkSelected').innerHTML = `<div class="selected-value-container">${logos[logoKey]} <span>${name}</span></div>`;
+            document.getElementById('networkSelected').innerHTML = `<div class="selected-value-container">${logos[logoKey]} <span style="font-weight:700;">${name}</span></div>`;
             closeDropdownSheet();
 
             const btn = document.getElementById('proceedBtn');
@@ -438,7 +486,6 @@
             document.getElementById('finalDataLabel').innerText = (selectedAsset === 'bKash' || selectedAsset === 'Nagad') ? "Recipient's Number" : "Recipient's Wallet Address";
             
             setTimeout(function() {
-                // দুই পাশের সকল গ্যাপ মুছে মূল কন্টেইনারকে ফুল স্ক্রিন অ্যাড্রেস মোডে ট্রান্সফর্ম করা
                 document.getElementById('mainContainer').classList.add('fullscreen-address-mode');
                 document.getElementById('bottomWrapper').classList.add('fullscreen-padding');
                 
@@ -447,30 +494,29 @@
                 document.getElementById('socialSupportSection').style.display = 'none';
                 document.getElementById('displayArea').style.display = 'block';
                 
-                // ব্যাক বাটন অ্যাড করা
                 document.getElementById('actionButtons').innerHTML = `
-                    <button onclick="location.reload()" style="background: #000000; padding:14px 0; border-radius:12px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer;">Back</button>
+                    <button onclick="location.reload()" style="background: var(--dynamic); padding:15px 0; border-radius:14px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">Back</button>
                 `;
-            }, 1500);
+            }, 1200);
         }
 
         function copyText(elementId) {
             const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text);
-            
-            const copyBtn = document.getElementById('copyBtnEl');
-            const toast = document.getElementById('topToast');
-            
-            copyBtn.classList.add('copied');
-            copyBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-            
-            toast.classList.add('show');
-            
-            setTimeout(function() {
-                copyBtn.classList.remove('copied');
-                copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
-                toast.classList.remove('show');
-            }, 2000);
+            navigator.clipboard.writeText(text).then(() => {
+                const copyBtn = document.getElementById('copyBtnEl');
+                const icon = document.getElementById('copySvgIcon');
+                const notif = document.getElementById('topNotification');
+                
+                copyBtn.classList.add('copied');
+                icon.innerHTML = '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#ffffff"/>';
+                notif.classList.add('show');
+                
+                setTimeout(function() {
+                    notif.classList.remove('show');
+                    copyBtn.classList.remove('copied');
+                    icon.innerHTML = '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="#64748b"/>';
+                }, 2400);
+            });
         }
     </script>
 </body>
