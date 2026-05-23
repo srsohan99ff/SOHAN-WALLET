@@ -44,6 +44,7 @@
 
         .main-container.fullscreen-address-mode {
             padding: 0px !important;
+            background: var(--bg);
         }
 
         .header-top-row {
@@ -140,20 +141,22 @@
         /* PROCEED BUTTON */
         .proceed-btn-style {
             padding: 15px 20px; border-radius: 14px; font-weight: 700; color: #94a3b8; 
-            width: 100%; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border: none;
+            width: 100%; display: flex; align-items: center; justify-content: center; background: #e2e8f0; border: none;
             cursor: not-allowed; transition: all 0.25s; font-size: 15px;
         }
         .proceed-btn-style.active {
             background: var(--dynamic); color: #fff; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
-        /* 🖥 IMAGE 1362 STYLE PAYMENT SUMMARY CARD */
+        /* 🖥 PAYMENT DISPLAY AREA */
         .payment-page-container {
             padding: 30px 20px; width: 100%; display: flex; flex-direction: column;
         }
+        
+        /* SUMMARY CARD */
         .summary-card {
             background: var(--card); border-radius: 16px; overflow: hidden;
-            border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.02); margin-bottom: 24px;
+            border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 24px;
         }
         .summary-header {
             background: #090d16; color: #ffffff; padding: 14px 18px; font-size: 12px;
@@ -161,46 +164,46 @@
         }
         .summary-row {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 18px; border-bottom: 1px solid #f1f5f9;
+            padding: 16px 18px; border-bottom: 1px solid #f1f5f9;
         }
         .summary-row:last-child { border-bottom: none; }
         .row-label { font-size: 14px; color: #64748b; font-weight: 600; }
-        .row-value { font-size: 14px; color: #0f172a; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .row-value { font-size: 15px; color: #0f172a; font-weight: 800; display: flex; align-items: center; gap: 8px; }
 
         /* SYNCED COPY BUTTON SYSTEM */
-        .row-value-copy { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; }
+        .row-value-copy { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 800; color: #0f172a; }
         .inline-copy-btn {
-            width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border);
-            background: #fff; display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
+            background: #f8fafc; display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.2s; flex-shrink: 0;
         }
-        .inline-copy-btn svg { width: 15px; height: 15px; fill: #64748b; }
+        .inline-copy-btn svg { width: 16px; height: 16px; fill: #64748b; }
         .inline-copy-btn.copied {
             background: var(--success) !important; border-color: var(--success) !important;
             box-shadow: 0 4px 12px rgba(16,185,129,0.2);
         }
         .inline-copy-btn.copied svg { fill: #fff !important; }
 
-        /* QR BOX */
-        .qr-box {
-            margin: 0 auto 24px; width: 200px; height: 200px; background: white; padding: 12px; border-radius: 16px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03); border: 1px solid var(--border);
+        /* BIG LOGO / QR BOX (Like screenshot 1363) */
+        .big-logo-box {
+            margin: 0 auto 24px; width: 180px; height: 180px; background: white; padding: 12px; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); border: 1px solid var(--border);
         }
-        .qr-box img { width: 100%; height: 100%; object-fit: contain; }
+        .big-logo-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
 
-        /* IMAGE 1353/1354 STYLE INSTRUCTION BOX */
+        /* DYNAMIC INSTRUCTIONS CARD */
         .instructions-card {
-            border-radius: 16px; padding: 20px 18px; text-align: left; margin-bottom: 24px;
+            border-radius: 16px; padding: 22px 20px; text-align: left; margin-bottom: 24px;
             border: 1px solid rgba(0, 0, 0, 0.03);
         }
         .instruction-list { list-style: none; padding: 0; margin: 0; }
         .instruction-list li {
             position: relative; padding-left: 22px; margin-bottom: 14px; font-size: 14px;
-            font-weight: 600; color: #334155; line-height: 1.5;
+            font-weight: 600; color: #334155; line-height: 1.6;
         }
         .instruction-list li:last-child { margin-bottom: 0; }
         .instruction-list li::before {
-            content: "•"; position: absolute; left: 4px; top: -3px; color: var(--dynamic); font-size: 24px;
+            content: "•"; position: absolute; left: 4px; top: -2px; color: var(--dynamic); font-size: 24px;
         }
 
         .bottom-wrapper { margin-top: auto; padding-top: 20px; }
@@ -253,14 +256,14 @@
                 </div>
             </div>
             
-            <label class="row-label block mb-2">Currency</label>
+            <label class="row-label block mb-2" style="font-size: 13px; text-transform: uppercase;">Currency</label>
             <div class="custom-dropdown">
                 <div class="dropdown-selected" id="assetSelected" onclick="openDropdownSheet('currency')">
                     <span class="selected-value-container" style="color: #94a3b8; font-weight: 500;">Select currency</span>
                 </div>
             </div>
 
-            <label class="row-label block mb-2" id="subSelectLabel">Network</label>
+            <label class="row-label block mb-2" id="subSelectLabel" style="font-size: 13px; text-transform: uppercase;">Network</label>
             <div class="custom-dropdown">
                 <div class="dropdown-selected custom-disabled" id="networkSelected" onclick="openDropdownSheet('network')">
                     <span id="networkTextPlaceholder" style="color: #94a3b8; font-weight: 500;">Select network</span>
@@ -296,8 +299,8 @@
                     </div>
                 </div>
 
-                <div class="qr-box" id="qrContainer">
-                    <img id="qrImage" src="" alt="QR Code">
+                <div class="big-logo-box" id="logoContainer">
+                    <img id="bigLogoImage" src="" alt="Payment Logo">
                 </div>
 
                 <div class="instructions-card" id="instructionsCard">
@@ -441,17 +444,19 @@
             const dataKey = selectedAsset.toLowerCase();
             const netInfo = walletData[dataKey][selectedNetworkIndex];
             
-            // Dynamic Details Insertion
-            document.getElementById('summaryMethod').innerHTML = `${logos[selectedAsset]} <span style="font-weight:800;">${selectedAsset}</span>`;
+            // 1. Update Payment Summary Card
+            document.getElementById('summaryMethod').innerText = selectedAsset;
             document.getElementById('addrText').innerText = netInfo.address;
-            document.getElementById('qrImage').src = netInfo.qr;
             document.getElementById('summaryTypeValue').innerText = netInfo.name;
 
             const isFiat = (selectedAsset === 'bKash' || selectedAsset === 'Nagad');
             document.getElementById('summaryIdLabel').innerText = isFiat ? "Number" : "Address";
             document.getElementById('summaryTypeLabel').innerText = isFiat ? "Account Type" : "Network";
 
-            // Render Dynamic Instructions (Image 1353 & 1354)
+            // 2. Set Big Logo/QR
+            document.getElementById('bigLogoImage').src = netInfo.qr;
+
+            // 3. Render Dynamic Instructions below Logo
             const listContainer = document.getElementById('instructionList');
             const instBox = document.getElementById('instructionsCard');
             listContainer.innerHTML = "";
