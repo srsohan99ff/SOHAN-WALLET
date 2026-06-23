@@ -44,7 +44,7 @@
             max-width: 480px;
             display: flex;
             flex-direction: column;
-            min-height: calc(100vh - 32px); /* পুশ করার জন্য মিনিমাম হাইট */
+            min-height: calc(100vh - 32px);
         }
 
         .top-nav-bar {
@@ -229,21 +229,51 @@
             width: calc(100% + 32px);
             margin-left: -16px;
         }
-        .summary-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #f2f2f7; }
-        .summary-row:last-child { border-bottom: none; }
-        .row-label-normal { font-size: 14px; color: #2c2c2e; font-weight: 500; flex-shrink: 0; }
         
-        /* PREMIUM ADDRESS ROW FIX (PREVENTS MIXING) */
+        /* ROW FLEX LAYOUT WITH GAP */
+        .summary-row { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 14px 16px; 
+            border-bottom: 1px solid #f2f2f7; 
+            gap: 16px; 
+        }
+        .summary-row:last-child { border-bottom: none; }
+        
+        /* বামের লেখাগুলো বোল্ড করা হলো */
+        .row-label-normal { 
+            font-size: 14px; 
+            color: #1c1c1e; 
+            font-weight: 700; /* বোল্ড করা হয়েছে */
+            flex-shrink: 0; 
+        }
+        
+        /* এড্রেস র-টিকে ইনলাইন এবং ডান পাশে সেট করা হলো */
         .summary-row.address-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
+            flex-direction: row;
+            align-items: center;
         }
         .summary-row.address-row .row-value-copy { 
-            display: flex; align-items: center; gap: 12px; font-size: 14.5px; 
-            color: #1c1c1e; width: 100%; justify-content: space-between; min-width: 0;
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 14px; 
+            color: #1c1c1e; 
+            width: 100%; 
+            justify-content: flex-end; 
+            min-width: 0;
+            flex-grow: 1;
         }
-        #addrText { word-break: break-all; text-align: left; min-width: 0; font-weight: 400; color: #1c1c1e; }
+        
+        /* টেক্সটটি যাতে ডান পাশে সুন্দরভাবে দেখায় এবং ভেঙে যায় */
+        #addrText { 
+            word-break: break-all; 
+            text-align: right; 
+            min-width: 0; 
+            font-weight: 500; 
+            color: #1c1c1e; 
+        }
         
         .inline-copy-btn {
             width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border);
@@ -294,7 +324,7 @@
         /* SUPPORT BAR TO ABSOLUTE BOTTOM */
         .social-support-container { 
             text-align: center; 
-            margin-top: auto; /* এই কোডটি সাপোর্ট সেকশনকে একদম নিচে পুশ করবে */
+            margin-top: auto; 
             padding-top: 16px; 
             padding-bottom: 8px;
             border-top: 1px solid var(--border); 
@@ -373,8 +403,9 @@
                     <span class="row-label-normal">Method</span>
                     <div class="row-value" id="summaryMethod">-</div>
                 </div>
+                
                 <div class="summary-row address-row">
-                    <span class="row-label-normal" id="summaryIdLabel" style="width:100%; text-align:left;">Address</span>
+                    <span class="row-label-normal" id="summaryIdLabel">Address</span>
                     <div class="row-value-copy">
                         <span id="addrText">LOADING...</span>
                         <button id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
@@ -384,6 +415,7 @@
                         </button>
                     </div>
                 </div>
+                
                 <div class="summary-row">
                     <span class="row-label-normal" id="summaryTypeLabel">Network</span>
                     <span class="row-value" id="summaryTypeValue" style="color: var(--success);">Personal</span>
