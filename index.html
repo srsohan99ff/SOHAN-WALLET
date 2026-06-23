@@ -44,6 +44,7 @@
             max-width: 480px;
             display: flex;
             flex-direction: column;
+            min-height: calc(100vh - 32px); /* পুশ করার জন্য মিনিমাম হাইট */
         }
 
         .top-nav-bar {
@@ -197,7 +198,16 @@
         .ios-country-item:last-child { border-bottom: none; }
         .ios-country-item:active { background: #f2f2f7; }
         .item-name { font-weight: 500; display: flex; align-items: center; gap: 10px; }
-        .popular-badge { background: #e3f2fd; color: var(--primary); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 10px; }
+        
+        /* POPULAR BADGE GREEN COLOR */
+        .popular-badge { 
+            background: #e8f5e9; 
+            color: var(--success); 
+            font-size: 11px; 
+            font-weight: 600; 
+            padding: 3px 8px; 
+            border-radius: 10px; 
+        }
 
         /* PROCEED BUTTON */
         .proceed-btn {
@@ -207,20 +217,33 @@
         .proceed-btn.active { background: var(--primary) !important; color: #fff !important; cursor: pointer !important; }
         .btn-spinner { display: none; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.5s linear infinite; }
 
-        /* SUMMARY CARD */
+        /* FULL SCREEN EDGE-TO-EDGE SUMMARY CARD */
         .summary-card { 
-            background: var(--card); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 20px; width: 100%;
+            background: var(--card); 
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-left: none;
+            border-right: none;
+            border-radius: 0; 
+            margin-bottom: 20px; 
+            width: calc(100% + 32px);
+            margin-left: -16px;
         }
         .summary-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #f2f2f7; }
         .summary-row:last-child { border-bottom: none; }
         .row-label-normal { font-size: 14px; color: #2c2c2e; font-weight: 500; flex-shrink: 0; }
         
-        /* COPY COMPONENT */
-        .row-value-copy { 
-            display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; 
-            color: #1c1c1e; flex: 1; justify-content: flex-end; min-width: 0;
+        /* PREMIUM ADDRESS ROW FIX (PREVENTS MIXING) */
+        .summary-row.address-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
         }
-        #addrText { word-break: break-all; text-align: right; min-width: 0; font-weight: 400; color: #1c1c1e; }
+        .summary-row.address-row .row-value-copy { 
+            display: flex; align-items: center; gap: 12px; font-size: 14.5px; 
+            color: #1c1c1e; width: 100%; justify-content: space-between; min-width: 0;
+        }
+        #addrText { word-break: break-all; text-align: left; min-width: 0; font-weight: 400; color: #1c1c1e; }
         
         .inline-copy-btn {
             width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border);
@@ -256,7 +279,7 @@
         .qr-large-image img { width: 100%; height: 100%; object-fit: contain; }
         .qr-instruction { margin-top: 20px; font-size: 15px; font-weight: 500; color: var(--text-muted); }
 
-        /* FLOATING TOAST PILL - ১ লাইনে টিক চিহ্ন সহ সাকসেস মেসেজ */
+        /* FLOATING TOAST PILL */
         #topNotification {
             position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
             background: rgba(28, 28, 30, 0.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -268,8 +291,14 @@
         .toast-check { width: 18px; height: 18px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; }
         .toast-check svg { width: 10px; height: 10px; stroke: #fff; fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
 
-        /* SUPPORT BAR */
-        .social-support-container { text-align: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+        /* SUPPORT BAR TO ABSOLUTE BOTTOM */
+        .social-support-container { 
+            text-align: center; 
+            margin-top: auto; /* এই কোডটি সাপোর্ট সেকশনকে একদম নিচে পুশ করবে */
+            padding-top: 16px; 
+            padding-bottom: 8px;
+            border-top: 1px solid var(--border); 
+        }
         .support-title { font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px; }
         .social-icons-row { display: flex; justify-content: center; gap: 12px; }
         .social-circle-btn {
@@ -281,13 +310,11 @@
 </head>
 <body>
 
-    <!-- হুবহু ১ লাইনের ফ্লয়েড টিক চিহ্ন টোস্ট নোটিফিকেশন -->
     <div id="topNotification">
         <div class="toast-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         Copied Successfully!
     </div>
 
-    <!-- ফুল-স্ক্রিন কিউআর মডাল -->
     <div id="qrFullscreenOverlay">
         <button class="qr-close-btn" onclick="closeQR()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -312,7 +339,6 @@
             <h1 class="brand-title">𝐒ᴏʜᴀɴ 𝐏ᴇᴍᴇɴᴛ</h1>
         </div>
 
-        <!-- সিলেকশন পেজ (স্টেপ ১) -->
         <div id="selectionArea" class="step-container">
             <div class="section-label">Select Currency</div>
             <div class="input-card" id="currencyCard">
@@ -340,16 +366,15 @@
             </button>
         </div>
 
-        <!-- ফাইনাল পেমেন্ট সামারি পেজ (স্টেপ ২) -->
         <div id="displayArea" class="step-container" style="display: none;">
-            <div class="section-label">Payment Confirmation Summary</div>
+            <div class="section-label" style="padding-left:0px;">Payment Confirmation Summary</div>
             <div class="summary-card">
                 <div class="summary-row">
                     <span class="row-label-normal">Method</span>
                     <div class="row-value" id="summaryMethod">-</div>
                 </div>
-                <div class="summary-row">
-                    <span class="row-label-normal" id="summaryIdLabel">Address</span>
+                <div class="summary-row address-row">
+                    <span class="row-label-normal" id="summaryIdLabel" style="width:100%; text-align:left;">Address</span>
                     <div class="row-value-copy">
                         <span id="addrText">LOADING...</span>
                         <button id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
@@ -378,11 +403,10 @@
             </div>
 
             <button class="proceed-btn active" style="background: var(--primary) !important; color: #fff;" onclick="location.reload()">
-                <span>Back to Home</span>
+                <span>Back</span>
             </button>
         </div>
 
-        <!-- সাপোর্ট কন্টাক্ট সেকশন -->
         <div class="social-support-container">
             <div class="support-title">Please contact us if you have any questions</div>
             <div class="social-icons-row">
@@ -396,7 +420,6 @@
         </div>
     </div>
 
-    <!-- ফুল-স্ক্রিন আইওএস ড্রপডাউন মডাল (কারেন্সি এবং নেটওয়ার্ক ফিল্টার) -->
     <div class="ios-modal-overlay" id="dropdownOverlay">
         <div class="ios-bottom-sheet">
             <div class="ios-modal-header">
