@@ -2,381 +2,420 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>𝐒ᴏʜᴀɴ 𝐏ᴇᴍᴇɴᴛ - Official</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0f172a;
-            --success: #10b981;
-            --dynamic: #2563eb; /* অল টাইম নীল কালার থিম */
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --border: #e2e8f0;
-            --text: #0f172a;
-            --muted: #64748b;
-            --font: 'Inter', sans-serif;
+            --bg: #f2f2f7;          
+            --card: #ffffff;        
+            --border: #e5e5ea;      
+            --text-dark: #1c1c1e;   
+            --text-muted: #8e8e93;  
+            --success: #34c759;     
+            --danger: #ff3b30;
+            --primary: #2481cc;     
+            --font: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
         }
 
-        body {
-            background-color: var(--bg);
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: var(--font);
-            color: var(--text);
-            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body { 
+            background-color: var(--bg); 
+            padding: 16px; 
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
             display: flex;
             justify-content: center;
-        }
-        
-        .main-container { 
-            width: 100%; 
-            max-width: 480px; 
-            background: var(--card);
-            padding: 24px;
+            align-items: flex-start;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 480px;
             display: flex;
             flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.02);
         }
 
-        .main-container.fullscreen-address-mode {
-            padding: 24px !important;
-            background: var(--card);
-        }
-
-        .header-top-row {
+        .top-nav-bar {
+            width: 100%;
+            height: 36px;
             display: flex;
             align-items: center;
+            margin-bottom: 8px;
+        }
+        .back-circle-btn {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: #fff;
+            display: none; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .back-circle-btn svg { width: 14px; height: 14px; fill: #48484a; }
+
+        .brand-header {
+            display: flex;
             justify-content: center;
-            margin-bottom: 24px;
+            width: 100%;
+            margin-bottom: 20px;
+            margin-top: 4px;
+        }
+        h1.brand-title { 
+            font-size: 24px; 
+            font-weight: 700; 
+            color: #000000; 
+            letter-spacing: -0.3px;
         }
 
-        .step-title { font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.5px; text-align: center; }
+        .step-container { width: 100%; }
+        @keyframes stepFade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* DROPDOWN BOX */
-        .custom-dropdown {
-            position: relative; width: 100%; margin-bottom: 20px; user-select: none;
-        }
-
-        .dropdown-selected {
-            background: var(--card); color: var(--text); padding: 14px 16px; border-radius: 14px;
-            border: 1px solid var(--border); font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; justify-content: space-between; 
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        .section-label { font-size: 13px; font-weight: 500; color: var(--text-muted); text-align: left; margin-bottom: 8px; padding-left: 2px; }
         
-        .dropdown-selected.custom-disabled { 
-            opacity: 0.5 !important; 
-            cursor: not-allowed !important;
-            background: #f1f5f9 !important;
-            color: #94a3b8 !important;
-            border-color: #e2e8f0 !important;
+        /* INPUT CARD DROPDOWN STYLE */
+        .input-card {
+            width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+            position: relative; display: flex; align-items: center; margin-bottom: 20px; overflow: hidden;
+        }
+        .input-card.custom-disabled {
+            opacity: 0.6;
+            background: #e5e5ea;
+            cursor: not-allowed;
         }
 
-        .dropdown-selected::after {
-            content: ""; border-left: 5px solid transparent; border-right: 5px solid transparent;
-            border-top: 5px solid var(--text); transition: 0.3s; margin-left: 10px;
+        .custom-select-trigger {
+            width: 100%;
+            padding: 14px;
+            font-size: 14px;
+            color: #1c1c1e;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
         }
-        .dropdown-selected.open::after { transform: rotate(180deg); }
+        .custom-select-trigger.placeholder .trigger-content .item-name {
+            color: #bcbcc1;
+        }
+        .trigger-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: calc(100% - 16px);
+            padding-right: 4px;
+        }
+        .trigger-left-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .arrow-icon {
+            width: 10px;
+            height: 10px;
+            fill: none;
+            stroke: #8e8e93;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
 
-        /* BOTTOM MODAL SHEET OVERLAY */
-        .dropdown-overlay {
-            display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); z-index: 200;
-            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-            align-items: flex-end; justify-content: center;
+        .crypto-image-logo {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            object-fit: cover;
         }
+
+        /* iOS FULL SCREEN MODAL OVERLAY */
+        .ios-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); z-index: 20000;
+            display: none;
+            justify-content: center;
+        }
+        .ios-modal-overlay.show { display: flex; }
         
-        .dropdown-sheet {
-            background: var(--card); width: 100%; max-width: 480px;
-            border-top-left-radius: 24px; border-top-right-radius: 24px;
-            padding: 24px 20px; box-shadow: 0 -10px 40px rgba(0,0,0,0.12);
-            max-height: 75vh; display: flex; flex-direction: column;
-            animation: slideUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        .ios-bottom-sheet {
+            width: 100%; max-width: 480px; height: 100%;
+            display: flex; flex-direction: column;
+            padding: 16px;
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+        .ios-modal-header {
+            display: flex; align-items: center;
+            height: 40px; margin-bottom: 12px; position: relative;
         }
-
-        .sheet-header {
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;
+        .modal-back-btn {
+            width: 32px; height: 32px; border-radius: 50%;
+            border: 1px solid var(--border); background: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
         }
-        .sheet-title { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+        .modal-back-btn svg { width: 14px; height: 14px; fill: #48484a; }
         
-        .sheet-close-btn {
-            background: #f1f5f9; border: none; cursor: pointer; padding: 6px; border-radius: 50%; color: var(--text);
+        .ios-modal-title { 
+            position: absolute; left: 50%; transform: translateX(-50%);
+            font-size: 18px; font-weight: 700; color: #000; 
+            white-space: nowrap;
         }
 
-        /* SEARCH BAR */
-        .search-container { position: relative; margin-bottom: 16px; }
-        .search-input {
-            width: 100%; background: #f8fafc; border: 1px solid var(--border); padding: 12px 16px 12px 42px;
-            border-radius: 12px; font-size: 0.95rem; color: var(--text); outline: none; font-weight: 600;
+        .ios-search-box { margin-bottom: 14px; }
+        .search-input-wrapper {
+            width: 100%; background: #ffffff;
+            border-radius: 10px; border: 1px solid var(--border); 
+            display: flex; align-items: center; padding-left: 12px;
         }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+        .premium-search-icon {
+            width: 16px; height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+        }
+        .premium-search-icon svg {
+            width: 100%; height: 100%; fill: none; stroke: var(--primary); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+        }
+        .search-field {
+            width: 100%; padding: 12px 10px; border: none; outline: none; font-size: 14.5px; background: transparent; color: #000;
+        }
+        .search-field::placeholder { color: #bcbcc1; }
 
-        /* OPTIONS LIST */
-        .options-list-container { overflow-y: auto; flex-grow: 1; padding-bottom: 10px; }
-        .dropdown-option {
-            padding: 14px 12px; cursor: pointer; display: flex; align-items: center;
-            justify-content: space-between; border-radius: 12px; transition: all 0.2s; color: var(--text);
-            font-weight: 600; font-size: 1rem; margin-bottom: 4px;
+        .ios-list-content {
+            overflow-y: auto; flex-grow: 1; background: #ffffff; border-radius: 10px; border: 1px solid var(--border);
         }
-        .dropdown-option:hover { background: #f1f5f9; }
-        .option-left-content { display: flex; align-items: center; gap: 14px; }
-        .popular-badge { background: #dcfce7; color: #16a34a; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
-
-        .selected-value-container { display: flex; align-items: center; gap: 12px; width: 100%; font-size: 0.95rem; color: var(--text); }
-        .crypto-image-logo { width: 28px; height: 28px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
-
-        .info-tag {
-            background: #eff6ff; color: #2563eb; padding: 6px 14px; border-radius: 20px; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; margin-bottom: 24px; border: 1px solid #dbeafe;
-        }
-
-        /* PROCEED BUTTON - অল টাইম নীল কালার */
-        .proceed-btn-style {
-            padding: 15px 20px; border-radius: 14px; font-weight: 700; color: #ffffff; 
-            width: 100%; display: flex; align-items: center; justify-content: center; background: var(--dynamic); border: none;
-            cursor: pointer; transition: all 0.25s; font-size: 15px; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
-        }
-        .proceed-btn-style:disabled {
-            background: #e2e8f0 !important; color: #94a3b8 !important; cursor: not-allowed !important; box-shadow: none !important;
-        }
-
-        /* PAYMENT DISPLAY AREA */
-        .payment-page-container {
-            padding: 10px 0; width: 100%; display: flex; flex-direction: column;
-        }
-        
-        /* SUMMARY CARD */
-        .summary-card {
-            background: var(--card); border-radius: 16px; overflow: hidden;
-            border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 24px;
-        }
-        .summary-header {
-            background: #090d16; color: #ffffff; padding: 14px 18px; font-size: 12px;
-            font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; text-align: left;
-        }
-        
-        .summary-row {
+        .ios-country-item {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 18px; border-bottom: 1px solid #f1f5f9;
+            padding: 14px 16px; font-size: 15px; color: #000;
+            border-bottom: 1px solid #f2f2f7; cursor: pointer; transition: background 0.1s;
         }
-        .summary-row:last-child { border-bottom: none; }
-        .row-label { font-size: 14px; color: #64748b; font-weight: 600; white-space: nowrap; margin-right: 12px; }
-        
-        /* কপি বাটন ফিক্সড রাখার জন্য অপ্টিমাইজড রো */
-        .row-value-copy { 
-            display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 800; 
-            color: #0f172a; flex: 1; justify-content: flex-end; min-width: 0;
-        }
-        #addrText { 
-            word-break: break-all;
-            text-align: right; line-height: 1.4; min-width: 0;
-        }
-        .row-value { font-size: 15px; color: #0f172a; font-weight: 800; display: flex; align-items: center; gap: 8px; text-align: right; }
+        .ios-country-item:last-child { border-bottom: none; }
+        .ios-country-item:active { background: #f2f2f7; }
+        .item-name { font-weight: 500; display: flex; align-items: center; gap: 10px; }
+        .popular-badge { background: #e3f2fd; color: var(--primary); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 10px; }
 
+        /* PROCEED BUTTON */
+        .proceed-btn {
+            width: 100%; padding: 14px; background: #d1d1d6; color: #8e8e93; border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+            cursor: not-allowed; transition: all 0.2s ease; display: flex; justify-content: center; align-items: center; gap: 6px;
+        }
+        .proceed-btn.active { background: var(--primary) !important; color: #fff !important; cursor: pointer !important; }
+        .btn-spinner { display: none; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.5s linear infinite; }
+
+        /* SUMMARY CARD */
+        .summary-card { 
+            background: var(--card); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 20px; width: 100%;
+        }
+        .summary-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #f2f2f7; }
+        .summary-row:last-child { border-bottom: none; }
+        .row-label-normal { font-size: 14px; color: #2c2c2e; font-weight: 500; flex-shrink: 0; }
+        
+        /* COPY COMPONENT */
+        .row-value-copy { 
+            display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; 
+            color: #1c1c1e; flex: 1; justify-content: flex-end; min-width: 0;
+        }
+        #addrText { word-break: break-all; text-align: right; min-width: 0; font-weight: 400; color: #1c1c1e; }
+        
         .inline-copy-btn {
-            width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border);
-            background: #f8fafc; display: flex; align-items: center; justify-content: center;
+            width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border);
+            background: #ffffff; display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.2s; flex-shrink: 0;
         }
-        .inline-copy-btn svg { width: 16px; height: 16px; fill: #64748b; }
-        .inline-copy-btn.copied {
-            background: var(--success) !important; border-color: var(--success) !important;
-            box-shadow: 0 4px 12px rgba(16,185,129,0.2);
-        }
+        .inline-copy-btn svg { width: 14px; height: 14px; fill: #8e8e93; }
+        .inline-copy-btn.copied { background: var(--success) !important; border-color: var(--success) !important; }
         .inline-copy-btn.copied svg { fill: #fff !important; }
 
-        /* QR CODE BUTTON & BOX */
-        .qr-toggle-btn {
-            background: #ffffff; border: 1px solid var(--border); padding: 12px 20px; border-radius: 12px;
-            font-weight: 600; color: var(--text); display: inline-flex; align-items: center; justify-content: center;
-            gap: 10px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: 0.3s; width: 100%;
-        }
-        .qr-toggle-btn:hover { background: #f8fafc; }
+        .row-value { font-size: 14px; font-weight: 600; color: #1c1c1e; display: flex; align-items: center; gap: 8px; text-align: right; }
 
-        /* FULLSCREEN QR OVERLAY */
+        /* QR DISPLAY BUTTON */
+        .qr-toggle-btn {
+            width: 100%; padding: 12px; background: #ffffff; color: var(--text-dark); border: 1px solid var(--border); border-radius: 10px; font-size: 13.5px; font-weight: 500;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 20px;
+        }
+
+        /* FULL SCREEN QR CODE OVERLAY */
         #qrFullscreenOverlay {
             display: none; position: fixed; inset: 0; background: var(--bg);
-            z-index: 9999; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 25000; flex-direction: column; align-items: center; justify-content: center;
         }
         .qr-close-btn {
-            position: absolute; top: 30px; right: 30px; background: var(--card); border: 1px solid var(--border);
-            width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; color: var(--text); box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.2s;
+            position: absolute; top: 30px; right: 30px; background: #fff; border: 1px solid var(--border);
+            width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-dark);
         }
-        .qr-close-btn:hover { background: #f1f5f9; transform: scale(1.05); }
         .qr-large-image {
-            width: 260px; height: 260px; background: #fff; padding: 16px; border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid var(--border);
+            width: 240px; height: 240px; background: #fff; padding: 14px; border-radius: 16px;
+            border: 1px solid var(--border);
         }
-        .qr-large-image img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
-        .qr-instruction { margin-top: 24px; font-size: 16px; font-weight: 600; color: var(--muted); }
+        .qr-large-image img { width: 100%; height: 100%; object-fit: contain; }
+        .qr-instruction { margin-top: 20px; font-size: 15px; font-weight: 500; color: var(--text-muted); }
 
-        .bottom-wrapper { margin-top: auto; padding-top: 20px; width: 100%; }
-
-        .social-support-container { 
-            text-align: center; border-top: 1px solid #f1f5f9; 
-            padding-top: 20px; margin-top: 20px; padding-bottom: 10px;
-        }
-        .support-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px; letter-spacing: 0.3px; }
-        .social-icons-row { display: flex; justify-content: center; gap: 12px; }
-        .social-circle-btn {
-            width: 42px; height: 42px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .social-circle-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
-
-        .btn-spinner {
-            display: none; width: 18px; height: 18px; border: 2px solid rgba(255, 255, 255, 0.3); border-top-color: #fff; border-radius: 50%; animation: btnSpin 0.6s linear infinite; margin-right: 8px;
-        }
-        @keyframes btnSpin { to { transform: rotate(360deg); } }
-
-        /* FLOATING TOAST PILL - হুবহু আগের মতো এক লাইনে টিক চিহ্ন সহ */
+        /* FLOATING TOAST PILL - ১ লাইনে টিক চিহ্ন সহ সাকসেস মেসেজ */
         #topNotification {
             position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 600;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 10000; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; align-items: center; gap: 10px; white-space: nowrap;
+            background: rgba(28, 28, 30, 0.94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            color: #fff; padding: 10px 20px; border-radius: 24px; font-size: 13.5px; font-weight: 500;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 30000; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; gap: 8px; white-space: nowrap;
         }
-        #topNotification.show { top: 20px; }
-        .toast-check { width: 20px; height: 20px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; }
-        .toast-check svg { width: 11px; height: 11px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+        #topNotification.show { top: 24px; }
+        .toast-check { width: 18px; height: 18px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; }
+        .toast-check svg { width: 10px; height: 10px; stroke: #fff; fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* SUPPORT BAR */
+        .social-support-container { text-align: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+        .support-title { font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px; }
+        .social-icons-row { display: flex; justify-content: center; gap: 12px; }
+        .social-circle-btn {
+            width: 36px; height: 36px; border-radius: 50%; background: #fff; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-dark);
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
+    <!-- হুবহু ১ লাইনের ফ্লয়েড টিক চিহ্ন টোস্ট নোটিফিকেশন -->
     <div id="topNotification">
         <div class="toast-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         Copied Successfully!
     </div>
 
+    <!-- ফুল-স্ক্রিন কিউআর মডাল -->
     <div id="qrFullscreenOverlay">
         <button class="qr-close-btn" onclick="closeQR()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
         <div class="qr-large-image">
-            <img id="fullscreenQRImage" src="" alt="Scan QR Code">
+            <img id="fullscreenQRImage" src="" alt="QR Scanner">
         </div>
         <div class="qr-instruction">Scan this QR Code to Pay</div>
     </div>
 
-    <div class="main-container" id="mainContainer">
-        
-        <div class="header-top-row" id="mainHeaderRow">
-            <h2 class="step-title">𝐒ᴏʜᴀɴ 𝐏ᴇᴍᴇɴᴛ</h2>
+    <div class="wrapper">
+        <div class="top-nav-bar">
+            <button id="backArrowBtn" class="back-circle-btn" onclick="handleBackHome()">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
         </div>
-        
-        <div id="selectionArea">
-            <div style="text-align: center;">
-                <div class="info-tag">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <span>Select payment method</span>
-                </div>
-            </div>
-            
-            <label class="row-label block mb-2" style="font-size: 13px; text-transform: uppercase;">Currency</label>
-            <div class="custom-dropdown">
-                <div class="dropdown-selected" id="assetSelected" onclick="openDropdownSheet('currency')">
-                    <span class="selected-value-container" style="color: #94a3b8; font-weight: 500;">Select currency</span>
+
+        <div class="brand-header" id="brandHeader">
+            <h1 class="brand-title">𝐒ᴏʜᴀɴ 𝐏ᴇᴍᴇɴᴛ</h1>
+        </div>
+
+        <!-- সিলেকশন পেজ (স্টেপ ১) -->
+        <div id="selectionArea" class="step-container">
+            <div class="section-label">Select Currency</div>
+            <div class="input-card" id="currencyCard">
+                <div class="custom-select-trigger placeholder" id="assetSelected" onclick="openDropdownSheet('currency')">
+                    <div class="trigger-content" id="selectedCurrencyText">
+                        <span class="item-name">Select Currency</span>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
                 </div>
             </div>
 
-            <label class="row-label block mb-2" id="subSelectLabel" style="font-size: 13px; text-transform: uppercase;">Network</label>
-            <div class="custom-dropdown">
-                <div class="dropdown-selected custom-disabled" id="networkSelected" onclick="openDropdownSheet('network')">
-                    <span id="networkTextPlaceholder" style="color: #94a3b8; font-weight: 500;">Select network</span>
+            <div class="section-label" id="subSelectLabel">Network</div>
+            <div class="input-card custom-disabled" id="networkCard">
+                <div class="custom-select-trigger placeholder" id="networkSelected" onclick="openDropdownSheet('network')">
+                    <div class="trigger-content" id="selectedNetworkText">
+                        <span class="item-name" id="networkTextPlaceholder">Select Network</span>
+                    </div>
+                    <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
                 </div>
             </div>
+
+            <button id="proceedBtn" class="proceed-btn" onclick="startLoadingProcess()" disabled>
+                <div id="btnSpinner" class="btn-spinner"></div>
+                <span id="btnText">Proceed</span>
+            </button>
         </div>
 
-        <div id="displayArea" style="display: none; width: 100%;">
-            <div class="payment-page-container">
-                
-                <div class="summary-card">
-                    <div class="summary-header">Payment Summary</div>
-                    <div class="summary-body">
-                        <div class="summary-row">
-                            <span class="row-label">Method</span>
-                            <div class="row-value" id="summaryMethod"></div>
-                        </div>
-                        <div class="summary-row">
-                            <span class="row-label" id="summaryIdLabel">Number</span>
-                            <div class="row-value-copy">
-                                <span id="addrText" style="font-family: monospace;">LOADING...</span>
-                                <button id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
-                                    <svg id="copySvgIcon" viewBox="0 0 24 24">
-                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="summary-row">
-                            <span class="row-label" id="summaryTypeLabel">Account Type</span>
-                            <span class="row-value" id="summaryTypeValue" style="color: #10b981;">Personal</span>
-                        </div>
+        <!-- ফাইনাল পেমেন্ট সামারি পেজ (স্টেপ ২) -->
+        <div id="displayArea" class="step-container" style="display: none;">
+            <div class="section-label">Payment Confirmation Summary</div>
+            <div class="summary-card">
+                <div class="summary-row">
+                    <span class="row-label-normal">Method</span>
+                    <div class="row-value" id="summaryMethod">-</div>
+                </div>
+                <div class="summary-row">
+                    <span class="row-label-normal" id="summaryIdLabel">Address</span>
+                    <div class="row-value-copy">
+                        <span id="addrText">LOADING...</span>
+                        <button id="copyBtnEl" class="inline-copy-btn" onclick="copyText('addrText')">
+                            <svg id="copySvgIcon" viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
-
-                <div id="qrToggleContainer" style="display: none; text-align: center; margin-bottom: 24px;">
-                    <button class="qr-toggle-btn" onclick="openQR()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                            <path d="M3 11v2m18-2v2m-10-8h2m-2 18h2"></path>
-                        </svg>
-                        <span>Show QR Code Scanner</span>
-                    </button>
+                <div class="summary-row">
+                    <span class="row-label-normal" id="summaryTypeLabel">Network</span>
+                    <span class="row-value" id="summaryTypeValue" style="color: var(--success);">Personal</span>
                 </div>
             </div>
-        </div>
-        
-        <div class="bottom-wrapper" id="bottomWrapper">
-            <div id="actionButtons">
-                <button id="proceedBtn" onclick="startLoadingProcess()" class="proceed-btn-style" disabled>
-                    <div id="btnLoader" class="btn-spinner"></div>
-                    <span id="btnText">Proceed</span>
+
+            <div id="qrToggleContainer" style="display: none;">
+                <button class="qr-toggle-btn" onclick="openQR()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Show QR Code Scanner</span>
                 </button>
             </div>
 
-            <div class="social-support-container" id="socialSupportSection">
-                <div class="support-title">Please contact us if you have any questions</div>
-                <div class="social-icons-row">
-                    <a href="https://t.me/srsohan99ff" target="_blank" class="social-circle-btn">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-                    </a>
-                    <a href="https://wa.me/8801329365319" target="_blank" class="social-circle-btn">
-                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.729-1.447L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.852.002-2.632-1.023-5.105-2.887-6.97C16.577 1.917 14.101.892 11.47.89 6.037.89 1.612 5.31 1.608 10.741c-.001 1.682.449 3.32 1.302 4.773L1.87 20.354l5.106-1.34c-.11.06-.21.11-.328.14zM17.65 14.4c-.32-.16-1.89-.93-2.185-1.04-.3-.11-.51-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.6-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.15-.14.32-.37.48-.56.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.64-.53-.55-.72-.56l-.61-.01c-.21 0-.56.08-.85.4-.3.32-1.15 1.13-1.15 2.75 0 1.62 1.18 3.19 1.35 3.41.17.22 2.33 3.56 5.65 5 .79.34 1.41.55 1.89.7.8.25 1.53.22 2.11.13.65-.1 1.89-.77 2.15-1.48.27-.71.27-1.32.19-1.45-.08-.14-.3-.22-.62-.38z"/></svg>
-                    </a>
-                </div>
+            <button class="proceed-btn active" style="background: var(--primary) !important; color: #fff;" onclick="location.reload()">
+                <span>Back to Home</span>
+            </button>
+        </div>
+
+        <!-- সাপোর্ট কন্টাক্ট সেকশন -->
+        <div class="social-support-container">
+            <div class="support-title">Please contact us if you have any questions</div>
+            <div class="social-icons-row">
+                <a href="https://t.me/srsohan99ff" target="_blank" class="social-circle-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                </a>
+                <a href="https://wa.me/8801329365319" target="_blank" class="social-circle-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.729-1.447L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.852.002-2.632-1.023-5.105-2.887-6.97C16.577 1.917 14.101.892 11.47.89 6.037.89 1.612 5.31 1.608 10.741c-.001 1.682.449 3.32 1.302 4.773L1.87 20.354l5.106-1.34c-.11.06-.21.11-.328.14zM17.65 14.4c-.32-.16-1.89-.93-2.185-1.04-.3-.11-.51-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.19.21-.38.24-.7.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.6-1.9-1.78-2.22-.19-.32-.02-.49.14-.65.15-.14.32-.37.48-.56.16-.18.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.73-.99-2.37-.26-.64-.53-.55-.72-.56l-.61-.01c-.21 0-.56.08-.85.4-.3.32-1.15 1.13-1.15 2.75 0 1.62 1.18 3.19 1.35 3.41.17.22 2.33 3.56 5.65 5 .79.34 1.41.55 1.89.7.8.25 1.53.22 2.11.13.65-.1 1.89-.77 2.15-1.48.27-.71.27-1.32.19-1.45-.08-.14-.3-.22-.62-.38z"/></svg>
+                </a>
             </div>
         </div>
     </div>
 
-    <div id="dropdownOverlay" class="dropdown-overlay" onclick="closeDropdownSheet()">
-        <div class="dropdown-sheet" onclick="event.stopPropagation()">
-            <div class="sheet-header">
-                <span id="sheetTitle" class="sheet-title">Select network</span>
-                <button class="sheet-close-btn" onclick="closeDropdownSheet()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    <!-- ফুল-স্ক্রিন আইওএস ড্রপডাউন মডাল (কারেন্সি এবং নেটওয়ার্ক ফিল্টার) -->
+    <div class="ios-modal-overlay" id="dropdownOverlay">
+        <div class="ios-bottom-sheet">
+            <div class="ios-modal-header">
+                <button class="modal-back-btn" onclick="closeDropdownSheet()">
+                    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 </button>
+                <span id="sheetTitle" class="ios-modal-title">Select Currency</span>
             </div>
-            <div class="search-container">
-                <span class="search-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
-                <input type="text" id="sheetSearchInput" class="search-input" placeholder="Search" oninput="filterDropdownOptions()">
+            
+            <div class="ios-search-box">
+                <div class="search-input-wrapper">
+                    <div class="premium-search-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <input type="text" id="sheetSearchInput" class="search-field" placeholder="Search..." oninput="filterDropdownOptions()">
+                </div>
             </div>
-            <div class="options-list-container" id="sheetOptionsList"></div>
+            
+            <div class="ios-list-content" id="sheetOptionsList"></div>
         </div>
     </div>
 
@@ -410,37 +449,37 @@
         let currentSheetType = ""; 
 
         function openDropdownSheet(type) {
-            if (type === 'network' && document.getElementById('networkSelected').classList.contains('custom-disabled')) return;
+            if (type === 'network' && document.getElementById('networkCard').classList.contains('custom-disabled')) return;
             currentSheetType = type;
             document.getElementById('sheetSearchInput').value = ""; 
-            document.getElementById('dropdownOverlay').style.display = 'flex';
-            document.getElementById('sheetTitle').innerText = type === 'currency' ? "Select currency" : ((selectedAsset === 'bKash' || selectedAsset === 'Nagad') ? "Select account type" : "Select network");
+            document.getElementById('dropdownOverlay').classList.add('show');
+            document.getElementById('sheetTitle').innerText = type === 'currency' ? "Select Currency" : ((selectedAsset === 'bKash' || selectedAsset === 'Nagad') ? "Select Account Type" : "Select Network");
             renderSheetOptions();
         }
 
-        function closeDropdownSheet() { document.getElementById('dropdownOverlay').style.display = 'none'; }
+        function closeDropdownSheet() { document.getElementById('dropdownOverlay').classList.remove('show'); }
 
-        function renderSheetOptions(filteredData = null) {
+        function renderSheetOptions() {
             const container = document.getElementById('sheetOptionsList'); container.innerHTML = "";
+            const searchVal = document.getElementById('sheetSearchInput').value.toLowerCase();
+
             if (currentSheetType === 'currency') {
                 const assets = ['bKash', 'Nagad', 'USDT', 'LTC'];
-                const searchVal = document.getElementById('sheetSearchInput').value.toLowerCase();
                 assets.forEach(asset => {
                     if (asset.toLowerCase().includes(searchVal)) {
-                        const item = document.createElement('div'); item.className = "dropdown-option";
-                        item.innerHTML = `<div class="option-left-content">${logos[asset]} <span>${asset}</span></div>`;
+                        const item = document.createElement('div'); item.className = "ios-country-item";
+                        item.innerHTML = `<span class="item-name">${logos[asset]} ${asset}</span>`;
                         item.onclick = () => selectCurrency(asset); container.appendChild(item);
                     }
                 });
             } else {
                 const dataKey = selectedAsset.toLowerCase();
                 if(walletData[dataKey]) {
-                    const searchVal = document.getElementById('sheetSearchInput').value.toLowerCase();
                     walletData[dataKey].forEach((net, index) => {
                         if (net.name.toLowerCase().includes(searchVal)) {
-                            const item = document.createElement('div'); item.className = "dropdown-option";
+                            const item = document.createElement('div'); item.className = "ios-country-item";
                             let popBadge = net.isPopular ? `<span class="popular-badge">Popular</span>` : '';
-                            item.innerHTML = `<div class="option-left-content">${logos[net.logoKey]} <span>${net.name}</span></div> ${popBadge}`;
+                            item.innerHTML = `<span class="item-name">${logos[net.logoKey]} ${net.name}</span> ${popBadge}`;
                             item.onclick = () => selectNetwork(index, net.name, net.logoKey); container.appendChild(item);
                         }
                     });
@@ -448,54 +487,73 @@
             }
         }
 
-        function filterDropdownOptions() {
-            renderSheetOptions();
-        }
+        function filterDropdownOptions() { renderSheetOptions(); }
 
         function selectCurrency(asset) {
             selectedAsset = asset;
-            document.getElementById('assetSelected').innerHTML = `<div class="selected-value-container">${logos[asset]} <span style="font-weight:700;">${asset}</span></div>`;
+            const trigger = document.getElementById('assetSelected');
+            trigger.classList.remove('placeholder');
+            document.getElementById('selectedCurrencyText').innerHTML = `
+                <span class="item-name">${logos[asset]} ${asset}</span>
+            `;
             closeDropdownSheet();
+            
             const isFiat = (asset === 'bKash' || asset === 'Nagad');
             document.getElementById('subSelectLabel').innerText = isFiat ? "Account Type" : "Network";
-            const netSelected = document.getElementById('networkSelected');
-            netSelected.classList.remove('custom-disabled');
-            netSelected.innerHTML = `<span id="networkTextPlaceholder" style="color: var(--text); font-weight: 600;">${isFiat ? "Select account type" : "Select network"}</span>`;
-            selectedNetworkIndex = ""; const btn = document.getElementById('proceedBtn'); btn.disabled = true;
+            
+            const netCard = document.getElementById('networkCard');
+            const netTrigger = document.getElementById('networkSelected');
+            netCard.classList.remove('custom-disabled');
+            netTrigger.classList.add('placeholder');
+            document.getElementById('selectedNetworkText').innerHTML = `
+                <span class="item-name" id="networkTextPlaceholder">${isFiat ? "Select Account Type" : "Select Network"}</span>
+            `;
+            selectedNetworkIndex = ""; 
+            
+            const btn = document.getElementById('proceedBtn'); 
+            btn.setAttribute('disabled','true');
+            btn.classList.remove('active');
         }
 
         function selectNetwork(index, name, logoKey) {
             selectedNetworkIndex = index;
-            document.getElementById('networkSelected').innerHTML = `<div class="selected-value-container">${logos[logoKey]} <span style="font-weight:700;">${name}</span></div>`;
+            const trigger = document.getElementById('networkSelected');
+            trigger.classList.remove('placeholder');
+            document.getElementById('selectedNetworkText').innerHTML = `
+                <span class="item-name">${logos[logoKey]} ${name}</span>
+            `;
             closeDropdownSheet();
-            const btn = document.getElementById('proceedBtn'); btn.disabled = false;
+            
+            const btn = document.getElementById('proceedBtn'); 
+            btn.removeAttribute('disabled');
+            btn.classList.add('active');
             document.getElementById('btnText').innerText = "Proceed";
         }
 
         function startLoadingProcess() {
             if(selectedAsset === "" || selectedNetworkIndex === "") return;
-            const btn = document.getElementById('proceedBtn'); const loader = document.getElementById('btnLoader'); const btnText = document.getElementById('btnText');
-            btn.disabled = true; btnText.innerText = ""; loader.style.display = 'block';
+            const btn = document.getElementById('proceedBtn'); 
+            const spinner = document.getElementById('btnSpinner'); 
+            const btnText = document.getElementById('btnText');
+            
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
             
             const dataKey = selectedAsset.toLowerCase();
             const netInfo = walletData[dataKey][selectedNetworkIndex];
             const isFiat = (selectedAsset === 'bKash' || selectedAsset === 'Nagad');
             
-            // Update Summary Card
             document.getElementById('summaryMethod').innerHTML = `
-                <img src="${logoUrls[selectedAsset]}" style="width: 20px; height: 20px; border-radius: 4px; object-fit: cover;"> 
-                <span class="ml-2">${selectedAsset}</span>
+                <img src="${logoUrls[selectedAsset]}" class="crypto-image-logo"> 
+                <span style="font-weight:600;">${selectedAsset}</span>
             `;
             
             document.getElementById('addrText').innerText = netInfo.address;
             document.getElementById('summaryTypeValue').innerText = netInfo.name;
-
             document.getElementById('summaryIdLabel').innerText = isFiat ? "Number" : "Address";
             document.getElementById('summaryTypeLabel').innerText = isFiat ? "Account Type" : "Network";
 
-            // Control QR Code Button & Source
             const qrSection = document.getElementById('qrToggleContainer');
-
             if (isFiat) {
                 qrSection.style.display = 'none';
             } else {
@@ -504,15 +562,16 @@
             }
             
             setTimeout(function() {
-                document.getElementById('mainContainer').classList.add('fullscreen-address-mode');
-                document.getElementById('mainHeaderRow').style.display = 'none';
+                document.getElementById('brandHeader').style.display = 'none';
                 document.getElementById('selectionArea').style.display = 'none';
                 document.getElementById('displayArea').style.display = 'block';
-                
-                document.getElementById('actionButtons').innerHTML = `
-                    <button onclick="location.reload()" style="background: var(--dynamic); padding:15px 0; border-radius:14px; font-weight: 700; color: #fff; width: 100%; text-align: center; cursor:pointer; box-shadow: 0 8px 24px rgba(37,99,235,0.2); margin-bottom: 10px;">Back</button>
-                `;
-            }, 1200);
+                document.getElementById('displayArea').style.animation = 'stepFade 0.23s ease-out';
+                document.getElementById('backArrowBtn').style.display = 'flex';
+            }, 1000);
+        }
+
+        function handleBackHome() {
+            location.reload();
         }
 
         function openQR() { document.getElementById('qrFullscreenOverlay').style.display = 'flex'; }
@@ -531,8 +590,8 @@
                 
                 setTimeout(function() {
                     notif.classList.remove('show'); copyBtn.classList.remove('copied');
-                    icon.innerHTML = '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="#64748b"/>';
-                }, 2400);
+                    icon.innerHTML = '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="#8e8e93"/>';
+                }, 2000);
             });
         }
     </script>
